@@ -33,205 +33,208 @@ public class ImpressaoVew extends javax.swing.JFrame {
 	@SuppressWarnings("unchecked")
 	// <editor-fold defaultstate="collapsed" desc="Generated
 	// <editor-fold defaultstate="collapsed" desc="Generated
-	// Code">//GEN-BEGIN:initComponents
-	private void initComponents() {
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
 
-		Impressão = new javax.swing.ButtonGroup();
-		Agrupamento = new javax.swing.ButtonGroup();
-		jPanel1 = new javax.swing.JPanel();
-		jLabel1 = new javax.swing.JLabel();
-		jLabel2 = new javax.swing.JLabel();
-		jLabel3 = new javax.swing.JLabel();
-		btnSalvar = new javax.swing.JButton();
-		btnImprimir = new javax.swing.JButton();
-		btnCancelar = new javax.swing.JButton();
-		boxNumImpressao = new javax.swing.JCheckBox();
-		boxDescricao = new javax.swing.JCheckBox();
-		boxCodProduto = new javax.swing.JCheckBox();
-		boxGruSubgruDescricao = new javax.swing.JCheckBox();
-		boxGruSubgruCodigo = new javax.swing.JCheckBox();
-		boxGruCodigo = new javax.swing.JCheckBox();
-		boxGruDescricao = new javax.swing.JCheckBox();
-		boxSecao = new javax.swing.JCheckBox();
-		boxGrupoAgru = new javax.swing.JCheckBox();
-		boxAmbienteAgru = new javax.swing.JCheckBox();
-		boxSemAgru = new javax.swing.JCheckBox();
-		boxGruSubgrupoAgru = new javax.swing.JCheckBox();
-		boxImprimirAuto = new javax.swing.JCheckBox();
+        Impressão = new javax.swing.ButtonGroup();
+        Agrupamento = new javax.swing.ButtonGroup();
+        jPanel1 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        btnSalvar = new javax.swing.JButton();
+        btnImprimir = new javax.swing.JButton();
+        btnCancelar = new javax.swing.JButton();
+        boxNumImpressao = new javax.swing.JCheckBox();
+        boxDescricao = new javax.swing.JCheckBox();
+        boxCodProduto = new javax.swing.JCheckBox();
+        boxGruSubgruDescricao = new javax.swing.JCheckBox();
+        boxGruSubgruCodigo = new javax.swing.JCheckBox();
+        boxGruCodigo = new javax.swing.JCheckBox();
+        boxGruDescricao = new javax.swing.JCheckBox();
+        boxSecao = new javax.swing.JCheckBox();
+        boxGrupoAgru = new javax.swing.JCheckBox();
+        boxAmbienteAgru = new javax.swing.JCheckBox();
+        boxSemAgru = new javax.swing.JCheckBox();
+        boxGruSubgrupoAgru = new javax.swing.JCheckBox();
+        boxImprimirAuto = new javax.swing.JCheckBox();
 
-		setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setResizable(false);
 
-		jPanel1.setBackground(java.awt.SystemColor.activeCaption);
+        jPanel1.setBackground(java.awt.SystemColor.activeCaption);
 
-		jLabel1.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-		jLabel1.setText("Ordem de Impressão");
+        jLabel1.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jLabel1.setText("Ordem de Impressão");
 
-		jLabel2.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-		jLabel2.setText("Agrupamento");
+        jLabel2.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jLabel2.setText("Agrupamento");
 
-		jLabel3.setText(
-				"_____________________________________________________________________________________________________");
+        jLabel3.setText(" ___________________________________________________________________________________________________");
 
-		btnSalvar.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-		btnSalvar.setText("Salvar");
+        btnSalvar.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        btnSalvar.setText("Salvar");
 
-		btnImprimir.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-		btnImprimir.setText("Imprimir");
+        btnImprimir.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        btnImprimir.setText("Imprimir");
 
-		btnCancelar.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-		btnCancelar.setText("Cancelar");
+        btnCancelar.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        btnCancelar.setText("Cancelar");
 
-		boxNumImpressao.setBackground(java.awt.SystemColor.activeCaption);
-		Impressão.add(boxNumImpressao);
-		boxNumImpressao.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-		boxNumImpressao.setText("Número de Item");
+        boxNumImpressao.setBackground(java.awt.SystemColor.activeCaption);
+        Impressão.add(boxNumImpressao);
+        boxNumImpressao.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        boxNumImpressao.setText("Número de Item");
 
-		boxDescricao.setBackground(java.awt.SystemColor.activeCaption);
-		Impressão.add(boxDescricao);
-		boxDescricao.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-		boxDescricao.setText("Descrição");
+        boxDescricao.setBackground(java.awt.SystemColor.activeCaption);
+        Impressão.add(boxDescricao);
+        boxDescricao.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        boxDescricao.setText("Descrição");
 
-		boxCodProduto.setBackground(java.awt.SystemColor.activeCaption);
-		Impressão.add(boxCodProduto);
-		boxCodProduto.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-		boxCodProduto.setText("Código do produto");
+        boxCodProduto.setBackground(java.awt.SystemColor.activeCaption);
+        Impressão.add(boxCodProduto);
+        boxCodProduto.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        boxCodProduto.setText("Código do produto");
 
-		boxGruSubgruDescricao.setBackground(java.awt.SystemColor.activeCaption);
-		Impressão.add(boxGruSubgruDescricao);
-		boxGruSubgruDescricao.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-		boxGruSubgruDescricao.setText("Grupo do Produto+Subgrupo do Produto+Descrição");
+        boxGruSubgruDescricao.setBackground(java.awt.SystemColor.activeCaption);
+        Impressão.add(boxGruSubgruDescricao);
+        boxGruSubgruDescricao.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        boxGruSubgruDescricao.setText("Grupo do Produto+Subgrupo do Produto+Descrição");
 
-		boxGruSubgruCodigo.setBackground(java.awt.SystemColor.activeCaption);
-		Impressão.add(boxGruSubgruCodigo);
-		boxGruSubgruCodigo.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-		boxGruSubgruCodigo.setText("Grupo do Produto+Subgrupo do Produto+Código");
+        boxGruSubgruCodigo.setBackground(java.awt.SystemColor.activeCaption);
+        Impressão.add(boxGruSubgruCodigo);
+        boxGruSubgruCodigo.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        boxGruSubgruCodigo.setText("Grupo do Produto+Subgrupo do Produto+Código");
 
-		boxGruCodigo.setBackground(java.awt.SystemColor.activeCaption);
-		Impressão.add(boxGruCodigo);
-		boxGruCodigo.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-		boxGruCodigo.setText("Grupo do Produto+Código do Produto");
+        boxGruCodigo.setBackground(java.awt.SystemColor.activeCaption);
+        Impressão.add(boxGruCodigo);
+        boxGruCodigo.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        boxGruCodigo.setText("Grupo do Produto+Código do Produto");
 
-		boxGruDescricao.setBackground(java.awt.SystemColor.activeCaption);
-		Impressão.add(boxGruDescricao);
-		boxGruDescricao.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-		boxGruDescricao.setText("Grupo do Produto+Descrição");
+        boxGruDescricao.setBackground(java.awt.SystemColor.activeCaption);
+        Impressão.add(boxGruDescricao);
+        boxGruDescricao.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        boxGruDescricao.setText("Grupo do Produto+Descrição");
 
-		boxSecao.setBackground(java.awt.SystemColor.activeCaption);
-		Impressão.add(boxSecao);
-		boxSecao.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-		boxSecao.setText("Seção");
+        boxSecao.setBackground(java.awt.SystemColor.activeCaption);
+        Impressão.add(boxSecao);
+        boxSecao.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        boxSecao.setText("Seção");
 
-		boxGrupoAgru.setBackground(java.awt.SystemColor.activeCaption);
-		Agrupamento.add(boxGrupoAgru);
-		boxGrupoAgru.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-		boxGrupoAgru.setText("Grupo");
+        boxGrupoAgru.setBackground(java.awt.SystemColor.activeCaption);
+        Agrupamento.add(boxGrupoAgru);
+        boxGrupoAgru.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        boxGrupoAgru.setText("Grupo");
 
-		boxAmbienteAgru.setBackground(java.awt.SystemColor.activeCaption);
-		Agrupamento.add(boxAmbienteAgru);
-		boxAmbienteAgru.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-		boxAmbienteAgru.setText("Ambiente");
+        boxAmbienteAgru.setBackground(java.awt.SystemColor.activeCaption);
+        Agrupamento.add(boxAmbienteAgru);
+        boxAmbienteAgru.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        boxAmbienteAgru.setText("Ambiente");
 
-		boxSemAgru.setBackground(java.awt.SystemColor.activeCaption);
-		Agrupamento.add(boxSemAgru);
-		boxSemAgru.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-		boxSemAgru.setText("Sem Agrupar");
+        boxSemAgru.setBackground(java.awt.SystemColor.activeCaption);
+        Agrupamento.add(boxSemAgru);
+        boxSemAgru.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        boxSemAgru.setText("Sem Agrupar");
 
-		boxGruSubgrupoAgru.setBackground(java.awt.SystemColor.activeCaption);
-		Agrupamento.add(boxGruSubgrupoAgru);
-		boxGruSubgrupoAgru.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-		boxGruSubgrupoAgru.setText("Grupo+Subgrupo");
+        boxGruSubgrupoAgru.setBackground(java.awt.SystemColor.activeCaption);
+        Agrupamento.add(boxGruSubgrupoAgru);
+        boxGruSubgrupoAgru.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        boxGruSubgrupoAgru.setText("Grupo+Subgrupo");
 
-		boxImprimirAuto.setBackground(java.awt.SystemColor.activeCaption);
-		boxImprimirAuto.setText("Imprimir Automatico");
+        boxImprimirAuto.setBackground(java.awt.SystemColor.activeCaption);
+        boxImprimirAuto.setText("Imprimir Automatico");
 
-		javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-		jPanel1.setLayout(jPanel1Layout);
-		jPanel1Layout.setHorizontalGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-				.addGroup(jPanel1Layout.createSequentialGroup()
-						.addGroup(jPanel1Layout
-								.createParallelGroup(
-										javax.swing.GroupLayout.Alignment.LEADING)
-								.addGroup(
-										jPanel1Layout.createSequentialGroup().addGap(10, 10, 10)
-												.addGroup(
-														jPanel1Layout
-																.createParallelGroup(
-																		javax.swing.GroupLayout.Alignment.LEADING)
-																.addComponent(boxNumImpressao)
-																.addComponent(boxDescricao).addComponent(boxCodProduto)
-																.addComponent(boxGruSubgruDescricao)
-																.addComponent(boxGrupoAgru)
-																.addComponent(boxGruSubgrupoAgru))
-												.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-												.addGroup(
-														jPanel1Layout
-																.createParallelGroup(
-																		javax.swing.GroupLayout.Alignment.LEADING)
-																.addComponent(boxSemAgru).addComponent(boxSecao)
-																.addComponent(boxGruDescricao)
-																.addComponent(boxGruCodigo)
-																.addComponent(boxGruSubgruCodigo)
-																.addComponent(boxAmbienteAgru)))
-								.addGroup(jPanel1Layout.createSequentialGroup().addGap(170, 170, 170)
-										.addComponent(jLabel1))
-								.addGroup(jPanel1Layout.createSequentialGroup().addGap(189, 189, 189)
-										.addComponent(jLabel2))
-								.addGroup(jPanel1Layout.createSequentialGroup().addGap(19, 19, 19)
-										.addComponent(boxImprimirAuto))
-								.addGroup(jPanel1Layout.createSequentialGroup().addContainerGap().addComponent(jLabel3))
-								.addGroup(jPanel1Layout.createSequentialGroup().addGap(54, 54, 54)
-										.addComponent(btnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 128,
-												javax.swing.GroupLayout.PREFERRED_SIZE)
-										.addGap(60, 60, 60)
-										.addComponent(btnImprimir, javax.swing.GroupLayout.PREFERRED_SIZE, 128,
-												javax.swing.GroupLayout.PREFERRED_SIZE)
-										.addGap(68, 68, 68).addComponent(btnCancelar,
-												javax.swing.GroupLayout.PREFERRED_SIZE, 128,
-												javax.swing.GroupLayout.PREFERRED_SIZE)))
-						.addContainerGap(7, Short.MAX_VALUE)));
-		jPanel1Layout
-				.setVerticalGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-						.addGroup(jPanel1Layout.createSequentialGroup().addGap(10, 10, 10)
-								.addComponent(jLabel1).addGap(18, 18, 18)
-								.addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-										.addComponent(boxNumImpressao).addComponent(boxGruSubgruCodigo))
-								.addGap(18, 18, 18)
-								.addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-										.addGroup(jPanel1Layout.createSequentialGroup().addComponent(boxCodProduto)
-												.addGap(18, 18, 18)
-												.addGroup(jPanel1Layout
-														.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-														.addComponent(boxGruSubgruDescricao).addComponent(boxSecao)))
-										.addGroup(
-												jPanel1Layout.createSequentialGroup()
-														.addGroup(jPanel1Layout
-																.createParallelGroup(
-																		javax.swing.GroupLayout.Alignment.BASELINE)
-																.addComponent(boxDescricao).addComponent(boxGruCodigo))
-														.addGap(18, 18, 18).addComponent(boxGruDescricao)
-														.addGap(34, 34, 34)))
-								.addComponent(jLabel2).addGap(18, 18, 18)
-								.addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-										.addComponent(boxGrupoAgru).addComponent(boxAmbienteAgru))
-								.addGap(18, 18, 18)
-								.addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-										.addComponent(boxSemAgru).addComponent(boxGruSubgrupoAgru))
-								.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-								.addComponent(jLabel3).addGap(18, 18, 18).addComponent(boxImprimirAuto)
-								.addGap(18, 18, 18)
-								.addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-										.addComponent(btnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 35,
-												javax.swing.GroupLayout.PREFERRED_SIZE)
-										.addComponent(btnImprimir, javax.swing.GroupLayout.PREFERRED_SIZE, 35,
-												javax.swing.GroupLayout.PREFERRED_SIZE)
-										.addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 35,
-												javax.swing.GroupLayout.PREFERRED_SIZE))
-								.addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(31, 31, 31)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(boxNumImpressao)
+                            .addComponent(boxDescricao)
+                            .addComponent(boxCodProduto)
+                            .addComponent(boxGruSubgruDescricao)
+                            .addComponent(boxGrupoAgru)
+                            .addComponent(boxGruSubgrupoAgru))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(boxSemAgru)
+                            .addComponent(boxSecao)
+                            .addComponent(boxGruDescricao)
+                            .addComponent(boxGruCodigo)
+                            .addComponent(boxGruSubgruCodigo)
+                            .addComponent(boxAmbienteAgru)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(170, 170, 170)
+                        .addComponent(jLabel1))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(189, 189, 189)
+                        .addComponent(jLabel2))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(19, 19, 19)
+                        .addComponent(boxImprimirAuto)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnImprimir, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel3))
+                .addGap(0, 0, 0))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(10, 10, 10)
+                .addComponent(jLabel1)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(boxNumImpressao)
+                    .addComponent(boxGruSubgruCodigo))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(boxCodProduto)
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(boxGruSubgruDescricao)
+                            .addComponent(boxSecao)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(boxDescricao)
+                            .addComponent(boxGruCodigo))
+                        .addGap(18, 18, 18)
+                        .addComponent(boxGruDescricao)
+                        .addGap(34, 34, 34)))
+                .addComponent(jLabel2)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(boxGrupoAgru)
+                    .addComponent(boxAmbienteAgru))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(boxSemAgru)
+                    .addComponent(boxGruSubgrupoAgru))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel3)
+                .addGap(6, 6, 6)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(boxImprimirAuto)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnImprimir, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(18, Short.MAX_VALUE))
+        );
 
-		getContentPane().add(jPanel1, java.awt.BorderLayout.CENTER);
+        getContentPane().add(jPanel1, java.awt.BorderLayout.CENTER);
 
-		pack();
-	}// </editor-fold>//GEN-END:initComponents
+        pack();
+        setLocationRelativeTo(null);
+    }// </editor-fold>//GEN-END:initComponents
 
 	/**
 	 * @param args
@@ -277,31 +280,30 @@ public class ImpressaoVew extends javax.swing.JFrame {
 		});
 	}
 
-	// Variables declaration - do not modify//GEN-BEGIN:variables
-	private javax.swing.ButtonGroup Agrupamento;
-	private javax.swing.ButtonGroup Impressão;
-	private javax.swing.JCheckBox boxAmbienteAgru;
-	private javax.swing.JCheckBox boxCodProduto;
-	private javax.swing.JCheckBox boxDescricao;
-	private javax.swing.JCheckBox boxGruCodigo;
-	private javax.swing.JCheckBox boxGruDescricao;
-	private javax.swing.JCheckBox boxGruSubgruCodigo;
-	private javax.swing.JCheckBox boxGruSubgruDescricao;
-	private javax.swing.JCheckBox boxGruSubgrupoAgru;
-	private javax.swing.JCheckBox boxGrupoAgru;
-	private javax.swing.JCheckBox boxImprimirAuto;
-	private javax.swing.JCheckBox boxNumImpressao;
-	private javax.swing.JCheckBox boxSecao;
-	private javax.swing.JCheckBox boxSemAgru;
-	private javax.swing.JButton btnCancelar;
-	private javax.swing.JButton btnImprimir;
-	private javax.swing.JButton btnSalvar;
-	private javax.swing.JLabel jLabel1;
-	private javax.swing.JLabel jLabel2;
-	private javax.swing.JLabel jLabel3;
-	private javax.swing.JPanel jPanel1;
-
-	// End of variables declaration//GEN-END:variables
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.ButtonGroup Agrupamento;
+    private javax.swing.ButtonGroup Impressão;
+    private javax.swing.JCheckBox boxAmbienteAgru;
+    private javax.swing.JCheckBox boxCodProduto;
+    private javax.swing.JCheckBox boxDescricao;
+    private javax.swing.JCheckBox boxGruCodigo;
+    private javax.swing.JCheckBox boxGruDescricao;
+    private javax.swing.JCheckBox boxGruSubgruCodigo;
+    private javax.swing.JCheckBox boxGruSubgruDescricao;
+    private javax.swing.JCheckBox boxGruSubgrupoAgru;
+    private javax.swing.JCheckBox boxGrupoAgru;
+    private javax.swing.JCheckBox boxImprimirAuto;
+    private javax.swing.JCheckBox boxNumImpressao;
+    private javax.swing.JCheckBox boxSecao;
+    private javax.swing.JCheckBox boxSemAgru;
+    private javax.swing.JButton btnCancelar;
+    private javax.swing.JButton btnImprimir;
+    private javax.swing.JButton btnSalvar;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JPanel jPanel1;
+    // End of variables declaration//GEN-END:variables
 	public javax.swing.JCheckBox getBoxAmbienteAgru() {
 		return boxAmbienteAgru;
 	}

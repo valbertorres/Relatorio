@@ -19,6 +19,7 @@ public class ProdutoTO {
 	private String grupo;
 	private String subgrupo;
 	private String orderBy;
+	private String ambiente;
 
 	public long getChave() {
 		return chave;
@@ -154,6 +155,14 @@ public class ProdutoTO {
 
 	public void setOrderBy(String orderBy) {
 		this.orderBy = orderBy;
+	}
+
+	public String getAmbiente() {
+		return ambiente;
+	}
+
+	public void setAmbiente(String ambiente) {
+		this.ambiente = ambiente;
 	}
 
 }

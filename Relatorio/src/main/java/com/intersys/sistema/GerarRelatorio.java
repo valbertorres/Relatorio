@@ -98,8 +98,9 @@ public class GerarRelatorio {
 			this.parameters.put("DataSource_Vencimento", listavencimeto);
 			this.parameters.put("DataSource_parcelas", listaParcelas);
 			this.parameters.put("DataSource_empresanome", nomeCliente);
-			this.parameters.put("exibir_subgrupo", true);
+			this.parameters.put("exibir_subgrupo", false);
 			this.parameters.put("exibir_grupo", false);
+			this.parameters.put("exibir_ambiente", false);
 			// int codigo = Integer.parseInt(lista1().get(0));
 			// this.parameters.put("p1chave", codigo);
 			// this.p1chave = new BigDecimal(codigo);

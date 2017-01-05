@@ -15,7 +15,7 @@ public class ProdutoFactory {
 	public static List<ProdutoTO> listaProduto() {
 		ProdutoTO produtoTO = new ProdutoTO();
 		List<ProdutoTO> listaSelect = new ArrayList<>();
-		String sql = "select pdcodgru,pdcodram,p1obs2 as obs ,p1chave , pdund ,p2qtd,p1chave,p2item, "
+		String sql = "select p2ambiente,pdcodgru,pdcodram,p1obs2 as obs ,p1chave , pdund ,p2qtd,p1chave,p2item, "
 				+ "pdnome,p2codpro,(p2preco*p2qtd)as total,p1totdes,p1totalb,p1totall ,P2PRECO, pdsecao "
 				+ "from cadp01,cadp02,cadpro where p1chave= 345640 and p1chave=p2chave and p2codpro=pdcodpro "
 				+ orderBy;
@@ -54,7 +54,8 @@ public class ProdutoFactory {
 			produtoTO.setValorTotal(resultSet.getDouble("total"));
 			produtoTO.setSessao(resultSet.getString("pdsecao"));
 			produtoTO.setSubgrupo(resultSet.getString("pdcodram"));
-			produtoTO.setGrupo(resultSet.getString("pdcodgru"));;
+			produtoTO.setGrupo(resultSet.getString("pdcodgru"));
+			produtoTO.setAmbiente(resultSet.getString("p2ambiente"));
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
