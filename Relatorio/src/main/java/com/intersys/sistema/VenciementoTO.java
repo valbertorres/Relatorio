@@ -1,4 +1,4 @@
-package com.intersys.relatorio.fabricaconexao;
+package com.intersys.sistema;
 
 import java.time.LocalDate;
 import java.util.Date;

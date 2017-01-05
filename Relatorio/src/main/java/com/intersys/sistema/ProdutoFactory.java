@@ -1,4 +1,4 @@
-package com.intersys.relatorio.fabricaconexao;
+package com.intersys.sistema;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -6,6 +6,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
+import com.intersys.relatorio.fabricaconexao.FabricaDeConexao;
 
 public class ProdutoFactory {
 	private static String orderBy = "";

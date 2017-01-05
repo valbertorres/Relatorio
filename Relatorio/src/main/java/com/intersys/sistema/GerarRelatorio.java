@@ -1,4 +1,4 @@
-package com.intersys.relatorio.fabricaconexao;
+package com.intersys.sistema;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -8,7 +8,6 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 
 import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.JasperCompileManager;
@@ -29,7 +28,7 @@ public class GerarRelatorio {
 	 */
 	private String str = "C:/Users/PROGRAMADOR-02/Desktop/relatorio/teste-master/Relatorio/src/main/java/relatorio_pedido.jasper";
 
-	private static String VerificarCNPJ(String cnpj) throws SQLException, Exception {
+	public static String VerificarCNPJ(String cnpj) throws SQLException, Exception {
 		StringBuffer cnpjBuffer = new StringBuffer();
 		int countCnpj = cnpj.length();
 		switch (countCnpj) {
@@ -99,7 +98,8 @@ public class GerarRelatorio {
 			this.parameters.put("DataSource_Vencimento", listavencimeto);
 			this.parameters.put("DataSource_parcelas", listaParcelas);
 			this.parameters.put("DataSource_empresanome", nomeCliente);
-			this.parameters.put("exibir_subgurpo", false);
+			this.parameters.put("exibir_subgrupo", true);
+			this.parameters.put("exibir_grupo", false);
 			// int codigo = Integer.parseInt(lista1().get(0));
 			// this.parameters.put("p1chave", codigo);
 			// this.p1chave = new BigDecimal(codigo);
@@ -111,7 +111,8 @@ public class GerarRelatorio {
 			byte[] compiledReportData = relatorioOutputCompiled.toByteArray();
 			relatorioOutputCompiled.close();
 
-			JasperPrint jasperPrint = JasperFillManager.fillReport(new ByteArrayInputStream(compiledReportData), this.parameters, jre);
+			JasperPrint jasperPrint = JasperFillManager.fillReport(new ByteArrayInputStream(compiledReportData),
+					this.parameters, jre);
 			JasperViewer jasperViewer = new JasperViewer(jasperPrint, false);
 			jasperViewer.setExtendedState(JasperViewer.MAXIMIZED_BOTH);
 			jasperViewer.setVisible(true);
@@ -136,8 +137,7 @@ public class GerarRelatorio {
 		// }
 
 	}
-	
-	
+
 	static int t = 0;
 
 	public class tempo extends Thread {
@@ -155,13 +155,13 @@ public class GerarRelatorio {
 				switch (i) {
 				case 10:
 					try {
-//						int lista = lista1().size();
-//						if (lista != 0) {
-//							gerarRelatorio.imprimirRelatorio();
-//						} else {
-//							i = 0;
-//						}
-//						i = 0;
+						// int lista = lista1().size();
+						// if (lista != 0) {
+						// gerarRelatorio.imprimirRelatorio();
+						// } else {
+						// i = 0;
+						// }
+						// i = 0;
 					} catch (Exception e) {
 						e.printStackTrace();
 					}

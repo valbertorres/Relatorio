@@ -1,4 +1,4 @@
-package com.intersys.relatorio.fabricaconexao;
+package com.intersys.sistema;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.persistence.jpa.jpql.utility.iterable.CloneListIterable;
+
+import com.intersys.relatorio.fabricaconexao.FabricaDeConexao;
 
 public class ClientePO {
 
@@ -52,13 +54,14 @@ public class ClientePO {
 		return listacliente;
 	}
 
-	private static ClienteTO transferenciadeResultSet(ResultSet resultSet) throws SQLException {
+	private static ClienteTO transferenciadeResultSet(ResultSet resultSet) throws Exception {
 		ClienteTO clienteTO = new ClienteTO();
-
+		String cnpj;
 		clienteTO.setBairro(resultSet.getString("cbairro"));
 		clienteTO.setCep(resultSet.getString("ccep"));
 		clienteTO.setCiadade(resultSet.getString("ccidadec"));
-		clienteTO.setCnpj(resultSet.getString("ccnpj"));
+		cnpj=(resultSet.getString("ccnpj"));
+		clienteTO.setCnpj(GerarRelatorio.VerificarCNPJ(cnpj));
 		clienteTO.setData(resultSet.getString("data"));
 		clienteTO.setEndereco(resultSet.getString("cenderc"));
 		clienteTO.setNomeCliente(resultSet.getString("crazao"));
@@ -89,7 +92,7 @@ public static void main(String[] args) {
 	chave = 345640;
 	
 	 for(ClienteTO clienteTO2 :Cliente()){
-		 System.out.println(clienteTO2.getNomeCliente());
+		 System.out.println(clienteTO2.getCnpj());
 	 }
 	
 }

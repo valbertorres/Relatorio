@@ -1,11 +1,11 @@
 eclipse.preferences.version=1
 encoding//src/main/java=UTF-8
-encoding//src/main/java/com/intersys/relatorio/fabricaconexao/relatorio_pedido.jrxml=UTF-8
-encoding//src/main/java/com/intersys/relatorio/fabricaconexao/sge_Cliente.jrxml=UTF-8
-encoding//src/main/java/com/intersys/relatorio/fabricaconexao/sge_relatorio_av.jrxml=UTF-8
-encoding//src/main/java/com/intersys/relatorio/fabricaconexao/sge_relatorio_chavetipo.jrxml=UTF-8
-encoding//src/main/java/com/intersys/relatorio/fabricaconexao/sge_relatorio_empres_nome.jrxml=UTF-8
-encoding//src/main/java/com/intersys/relatorio/fabricaconexao/sge_relatorio_vencimento.jrxml=UTF-8
+encoding//src/main/java/com/intersys/sistema/relatorio_pedido.jrxml=UTF-8
+encoding//src/main/java/com/intersys/sistema/sge_Cliente.jrxml=UTF-8
+encoding//src/main/java/com/intersys/sistema/sge_relatorio_av.jrxml=UTF-8
+encoding//src/main/java/com/intersys/sistema/sge_relatorio_chavetipo.jrxml=UTF-8
+encoding//src/main/java/com/intersys/sistema/sge_relatorio_empres_nome.jrxml=UTF-8
+encoding//src/main/java/com/intersys/sistema/sge_relatorio_vencimento.jrxml=UTF-8
 encoding//src/main/resources=UTF-8
 encoding//src/test/java=UTF-8
 encoding//src/test/resources=UTF-8
