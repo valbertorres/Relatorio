@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
+<!-- 2017-01-03T16:00:33 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="sge_relatorio_av" columnCount="20" printOrder="Horizontal" pageWidth="555" pageHeight="802" whenNoDataType="AllSectionsNoDetail" columnWidth="27" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="e2629beb-be60-4390-af05-7e96ed8f5b7e">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="sge_relatorio_av"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="parcelas" class="java.lang.Integer">
+		<fieldDescription><![CDATA[parcelas]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="14" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+			<textField isBlankWhenNull="true">
+				<reportElement x="0" y="0" width="27" height="14" uuid="547bf0ac-04c1-4e93-9cf6-0d1f2ae9671c">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					<printWhenExpression><![CDATA[$F{parcelas}==0 ? false:true]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["/"+$F{parcelas}]]></textFieldExpression>
+				<patternExpression><![CDATA[]]></patternExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>
