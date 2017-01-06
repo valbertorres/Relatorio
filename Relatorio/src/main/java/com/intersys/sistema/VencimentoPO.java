@@ -11,6 +11,15 @@ import com.intersys.relatorio.fabricaconexao.FabricaDeConexao;
 
 public class VencimentoPO {
 
+	private static VencimentoPO instancia;
+
+	public static synchronized VencimentoPO getinstancia() {
+		if (instancia == null) {
+			instancia = new VencimentoPO();
+		}
+		return instancia;
+	}
+
 	public static List<VenciementoTO> vencimento() {
 		VenciementoTO venciementoTO = new VenciementoTO();
 		List<VenciementoTO> listaVencimento = new ArrayList<>();

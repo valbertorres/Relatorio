@@ -18,15 +18,14 @@ import net.sf.jasperreports.view.JasperViewer;
 
 public class GerarRelatorio {
 	public GerarRelatorio() {
-		// tempo t = new tempo();
-		// t.start();
+	
 	}
 
 	private Map<String, Object> parameters = new HashMap();
+
 	/**
 	 * 
 	 */
-	private String str = "C:/Users/PROGRAMADOR-02/Desktop/relatorio/teste-master/Relatorio/src/main/java/relatorio_pedido.jasper";
 
 	public static String VerificarCNPJ(String cnpj) throws SQLException, Exception {
 		StringBuffer cnpjBuffer = new StringBuffer();
@@ -60,16 +59,17 @@ public class GerarRelatorio {
 		return cnpj;
 	}
 
-	public void imprimirRelatorio() throws Exception {
+	public void imprimirRelatorio(String orderBy, long chave) throws Exception {
 
-		ProdutoFactory.setOrderBy("order by pdcodgru");
-		ClientePO.setChave(345640);
+		ProdutoFactory.setOrderBy(orderBy);
+		ClientePO.setChave(chave);
 		List<ProdutoTO> produtoTO = ProdutoFactory.listaProduto();
-		List<ClienteTO> cliente = ClientePO.getInstancia().Cliente();
+		List<ClienteTO> cliente = ClientePO.Cliente();
 		List<ChaveTO> listaTipoChve = ChavePO.chave();
 		List<VenciementoTO> listaVencimento = VencimentoPO.vencimento();
 		List<ParcelasTO> listaparcelas = ParcelasPO.parcelas();
-		List<ClienteTO> nomecliente = ClientePO.getInstancia().Cliente();
+		List<ClienteTO> nomecliente = ClientePO.Cliente();
+
 		JRDataSource jre = new JRBeanCollectionDataSource(produtoTO);
 		JRDataSource listaCliente = new JRBeanCollectionDataSource(cliente);
 		JRDataSource listaCahveTipo = new JRBeanCollectionDataSource(listaTipoChve);
@@ -101,9 +101,6 @@ public class GerarRelatorio {
 			this.parameters.put("exibir_subgrupo", false);
 			this.parameters.put("exibir_grupo", false);
 			this.parameters.put("exibir_ambiente", false);
-			// int codigo = Integer.parseInt(lista1().get(0));
-			// this.parameters.put("p1chave", codigo);
-			// this.p1chave = new BigDecimal(codigo);
 			this.parameters.put("Logo", new FileInputStream("C:/sge/LOGO0.JPG"));
 
 			InputStream relatorioSource = GerarRelatorio.class.getResourceAsStream("relatorio_pedido.jrxml");
@@ -128,47 +125,26 @@ public class GerarRelatorio {
 
 	}
 
+	
+
 	static GerarRelatorio gerarRelatorio = new GerarRelatorio();
 
 	public static void main(String[] args) throws SQLException, Exception {
 
 		// int lista = lista1().size();
 		// if (lista != 0) {
-		gerarRelatorio.imprimirRelatorio();
+
 		// }
 
 	}
 
-	static int t = 0;
-
-	public class tempo extends Thread {
-		int i = 0;
-
-		public void run() {
-			while (true) {
-				try {
-					Thread.sleep(1000);
-					i++;
-				} catch (Exception e) {
-				}
-				System.out.println(i);
-
-				switch (i) {
-				case 10:
-					try {
-						// int lista = lista1().size();
-						// if (lista != 0) {
-						// gerarRelatorio.imprimirRelatorio();
-						// } else {
-						// i = 0;
-						// }
-						// i = 0;
-					} catch (Exception e) {
-						e.printStackTrace();
-					}
-				}
-
-			}
-		}
+	public Map<String, Object> getParameters() {
+		return parameters;
 	}
+
+	public void setParameters(Map<String, Object> parameters) {
+		this.parameters = parameters;
+	}
+
+
 }

@@ -11,6 +11,15 @@ import com.intersys.relatorio.fabricaconexao.FabricaDeConexao;
 
 public class ChavePO {
 
+	private static ChavePO instancia;
+	
+	public static synchronized ChavePO getInstancia(){
+		if(instancia==null){
+			instancia = new ChavePO();
+		}
+		return instancia;
+	}
+	
 	public static List<ChaveTO>chave() {
 		List<ChaveTO>listaChaveTipo = new ArrayList<>();
 		ChaveTO chaveTO = new ChaveTO();

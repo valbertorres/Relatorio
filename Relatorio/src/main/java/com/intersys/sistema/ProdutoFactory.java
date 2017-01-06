@@ -10,6 +10,15 @@ import java.util.List;
 import com.intersys.relatorio.fabricaconexao.FabricaDeConexao;
 
 public class ProdutoFactory {
+	private static ProdutoFactory instancia;
+	
+	public static synchronized ProdutoFactory getInstancia(){
+		if(instancia==null){
+			instancia = new ProdutoFactory();
+		}
+		return instancia;
+	}
+	
 	private static String orderBy = "";
 
 	public static List<ProdutoTO> listaProduto() {

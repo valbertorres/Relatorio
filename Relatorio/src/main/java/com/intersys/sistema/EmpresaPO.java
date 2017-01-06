@@ -9,6 +9,15 @@ import com.intersys.relatorio.fabricaconexao.FabricaDeConexao;
 
 public class EmpresaPO {
 
+	private static EmpresaPO instancia;
+
+	public static synchronized EmpresaPO getInstancia() {
+		if (instancia == null) {
+			instancia = new EmpresaPO();
+		}
+		return instancia;
+	}
+
 	public static EmpresaTO empresa() {
 		EmpresaTO empresaTO = new EmpresaTO();
 		String sql = "select razao,cgc,endereco,fone,inscricao,bairro,cep,cidade,e_mail,uf from cademp where codemp = 1 ";
