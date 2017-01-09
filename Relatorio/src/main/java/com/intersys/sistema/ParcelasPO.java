@@ -7,8 +7,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.hamcrest.core.IsNot;
-import org.springframework.util.SystemPropertyUtils;
 
 import com.intersys.relatorio.fabricaconexao.FabricaDeConexao;
 

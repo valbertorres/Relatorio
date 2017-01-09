@@ -50,7 +50,7 @@
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="boxNumImpressao" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="boxNumItem" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Component id="boxDescricao" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Component id="boxCodProduto" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Component id="boxGruSubgruDescricao" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -98,7 +98,7 @@
                   <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="1" attributes="0">
-                      <Component id="boxNumImpressao" min="-2" max="-2" attributes="0"/>
+                      <Component id="boxNumItem" min="-2" max="-2" attributes="0"/>
                       <Component id="boxGruSubgruCodigo" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
@@ -135,13 +135,13 @@
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="boxImprimirAuto" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Group type="103" alignment="3" groupAlignment="3" attributes="0">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="103" alignment="0" groupAlignment="3" attributes="0">
                           <Component id="btnSalvar" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
                           <Component id="btnImprimir" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
                           <Component id="btnCancelar" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
                       </Group>
+                      <Component id="boxImprimirAuto" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace pref="18" max="32767" attributes="0"/>
               </Group>
@@ -194,7 +194,7 @@
             <Property name="text" type="java.lang.String" value="Cancelar"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JCheckBox" name="boxNumImpressao">
+        <Component class="javax.swing.JCheckBox" name="boxNumItem">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="d1" green="b4" id="Legenda Ativa" palette="2" red="99" type="palette"/>

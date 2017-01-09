@@ -2,7 +2,9 @@ package com.intersys.sistema;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.sql.SQLException;
 import java.util.HashMap;
@@ -10,15 +12,18 @@ import java.util.List;
 import java.util.Map;
 
 import net.sf.jasperreports.engine.JRDataSource;
+import net.sf.jasperreports.engine.JRExporter;
+import net.sf.jasperreports.engine.JRExporterParameter;
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sf.jasperreports.engine.export.JRPdfExporter;
 import net.sf.jasperreports.view.JasperViewer;
 
 public class GerarRelatorio {
 	public GerarRelatorio() {
-	
+
 	}
 
 	private Map<String, Object> parameters = new HashMap();
@@ -117,7 +122,16 @@ public class GerarRelatorio {
 			// JasperPrintManager.printPage(jasperPrint, 0, false);
 			// JasperExportManager.exportReportToPdfFile(jasperPrint,
 			// "C:/sge/relatorio2.pdf");
-
+			GerarImpressaoTO gerarImpressaoTO = new GerarImpressaoTO();
+			JRExporter exporter = new JRPdfExporter();
+			exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
+			exporter.setParameter(JRExporterParameter.OUTPUT_FILE_NAME, "relatorio2.pdf");
+			exporter.exportReport();
+//			File file = new File("/Relatorio/relatorio.pdf");
+//			gerarImpressaoTO.setFile(file);
+//			GerarImpressaoPO gerarImpressaoPO = new GerarImpressaoPO();
+//			gerarImpressaoPO.setGerarImpressaoTO(gerarImpressaoTO);
+//			gerarImpressaoPO.inserirPdf();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -125,17 +139,29 @@ public class GerarRelatorio {
 
 	}
 
-	
-
 	static GerarRelatorio gerarRelatorio = new GerarRelatorio();
 
-	public static void main(String[] args) throws SQLException, Exception {
+//	public static void main(String[] args) throws SQLException, Exception {
 
-		// int lista = lista1().size();
-		// if (lista != 0) {
+//		 int lista = lista1().size();
+//		 if (lista != 0) {
+//		gerarRelatorio.imprimirRelatorio("order by pdnome", 345640);
+//		 }
 
-		// }
+//	}
+	
+	public static void main(String[] args) {
+		GerarImpressaoTO gerarImpressaoTO = new GerarImpressaoTO();
+		gerarImpressaoTO.setCaminho("C:/Users/PROGRAMADOR-02/Desktop/relatorio/teste-master/Relatorio/relatorio2.pdf");
+		GerarImpressaoPO gerarImpressaoPO = new GerarImpressaoPO();
+		gerarImpressaoPO.setGerarImpressaoTO(gerarImpressaoTO);
+		try {
+			gerarImpressaoPO.inserirPdf();
+			System.out.println("salvo com sucesso");
+		} catch (Exception e) {
 
+			e.printStackTrace();
+		}
 	}
 
 	public Map<String, Object> getParameters() {
@@ -145,6 +171,7 @@ public class GerarRelatorio {
 	public void setParameters(Map<String, Object> parameters) {
 		this.parameters = parameters;
 	}
-
+	
+	
 
 }

@@ -1,5 +1,9 @@
 package com.intersys.sistema;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.nio.file.Files;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -19,6 +23,8 @@ public class GerarImpressaoPO {
 		}
 		return instancia;
 	}
+
+	private GerarImpressaoTO gerarImpressaoTO;
 
 	public List<GerarImpressaoTO> impressaoLista() {
 		GerarImpressaoTO gerarImpressaoTO = new GerarImpressaoTO();
@@ -43,6 +49,51 @@ public class GerarImpressaoPO {
 		return listaImpressao;
 	}
 
+	public void atualizar() {
+		String sql = "update cadp01_requisicoes set p1r_tipo_evento=null where p1r_chave=?";
+
+		try (Connection connection = FabricaDeConexao.getInstancia().getConnxao()) {
+			try (PreparedStatement statement = connection.prepareStatement(sql)) {
+				statement.setLong(1, gerarImpressaoTO.getChave());
+				statement.execute();
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void inserirPdf()  {
+		String sql = "update CADP01_REQUISICOES set P1R_ARQUIVO_PDF=? where p1r_chave=345642";
+		File arquivo = new File(this.getGerarImpressaoTO().getCaminho());
+		FileInputStream file;
+		byte[] data = Files.readAllBytes(path);
+		System.out.println(arquivo.length());
+		try {
+			file = new FileInputStream(arquivo);
+		try (Connection connection = FabricaDeConexao.getInstancia().getConnxao()) {
+			try (PreparedStatement statement = connection.prepareStatement(sql)) {
+				statement.setBytes(1, file);;
+				statement.executeUpdate();
+				System.out.println("statement ok!");
+			}
+		} catch (FileNotFoundException e1) {
+			System.out.println("statement 1!");
+
+			e1.printStackTrace();
+		}
+		} catch (SQLException e) {
+			System.out.println("statement 2!");
+
+			e.printStackTrace();
+			System.out.println("statement 3!");
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
 	private static GerarImpressaoTO transferenciaResultset(ResultSet resultSet) throws SQLException {
 		GerarImpressaoTO gerarImpressaoTO = new GerarImpressaoTO();
 
@@ -52,11 +103,19 @@ public class GerarImpressaoPO {
 
 		return gerarImpressaoTO;
 	}
-	
+
 	public static void main(String[] args) {
-		for(GerarImpressaoTO gerarImpressaoTO : GerarImpressaoPO.getinstancia().impressaoLista()){
+		for (GerarImpressaoTO gerarImpressaoTO : GerarImpressaoPO.getinstancia().impressaoLista()) {
 			System.out.println(gerarImpressaoTO.getChave());
 		}
+	}
+
+	public GerarImpressaoTO getGerarImpressaoTO() {
+		return gerarImpressaoTO;
+	}
+
+	public void setGerarImpressaoTO(GerarImpressaoTO gerarImpressaoTO) {
+		this.gerarImpressaoTO = gerarImpressaoTO;
 	}
 
 }

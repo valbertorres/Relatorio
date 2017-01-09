@@ -43,8 +43,8 @@ public class ImpressaoCtrlVew {
 	public void inicializar() {
 		this.inicalizarComponente();
 		this.inicializarListene();
-		// tempo t = new tempo();
-		// t.start();
+		// Tempo imprimirAuto = new tempo();
+		// imprimirAuto.start();
 	}
 
 	private void inicalizarComponente() {
@@ -144,8 +144,14 @@ public class ImpressaoCtrlVew {
 
 		for (GerarImpressaoTO gerarImpressaoTO : listaImpressao) {
 			if (gerarImpressaoTO.getTipoEvento() == tipoI) {
-				// gerarRelatorio.imprimirRelatorio(tipoV, t);
+				selecaoimpressao();
+				try {
+					gerarRelatorio.imprimirRelatorio(ordemOmpressao, gerarImpressaoTO.getChave());
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 			}
+			GerarImpressaoPO.getinstancia().atualizar();
 		}
 
 	}
@@ -184,7 +190,7 @@ public class ImpressaoCtrlVew {
 
 	static int t = 0;
 
-	public class tempo extends Thread {
+	public class Tempo extends Thread {
 		int i = 0;
 
 		public void run() {
@@ -199,13 +205,12 @@ public class ImpressaoCtrlVew {
 				switch (i) {
 				case 10:
 					try {
-						// int lista = lista1().size();
-						// if (lista != 0) {
-						// gerarRelatorio.imprimirRelatorio();
-						// } else {
-						// i = 0;
-						// }
-						// i = 0;
+						if (GerarImpressaoPO.getinstancia().getGerarImpressaoTO().equals("I")) {
+							imprimirAuto();
+						} else {
+							i = 0;
+						}
+						i = 0;
 					} catch (Exception e) {
 						e.printStackTrace();
 					}

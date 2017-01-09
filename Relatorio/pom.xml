@@ -24,13 +24,20 @@
 			<artifactId>ojdbc14</artifactId>
 			<version>10.2.0.2.0</version>
 		</dependency>
-
+		
 		<!-- C3p0 (utilidades) -->
 		<dependency>
 			<groupId>com.mchange</groupId>
 			<artifactId>c3p0</artifactId>
 			<version>0.9.5.2</version>
 			<scope>compile</scope>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/com.itextpdf/itextpdf -->
+		<dependency>
+			<groupId>com.itextpdf</groupId>
+			<artifactId>itextpdf</artifactId>
+			<version>5.0.6</version>
 		</dependency>
 
 		<!-- Commons Lang (utilidades) -->
