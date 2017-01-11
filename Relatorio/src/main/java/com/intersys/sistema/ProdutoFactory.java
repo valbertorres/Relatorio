@@ -11,14 +11,14 @@ import com.intersys.relatorio.fabricaconexao.FabricaDeConexao;
 
 public class ProdutoFactory {
 	private static ProdutoFactory instancia;
-	
-	public static synchronized ProdutoFactory getInstancia(){
-		if(instancia==null){
+
+	public static synchronized ProdutoFactory getInstancia() {
+		if (instancia == null) {
 			instancia = new ProdutoFactory();
 		}
 		return instancia;
 	}
-	
+
 	private static String orderBy = "";
 
 	public static List<ProdutoTO> listaProduto() {
@@ -26,11 +26,11 @@ public class ProdutoFactory {
 		List<ProdutoTO> listaSelect = new ArrayList<>();
 		String sql = "select p2ambiente,pdcodgru,pdcodram,p1obs2 as obs ,p1chave , pdund ,p2qtd,p1chave,p2item, "
 				+ "pdnome,p2codpro,(p2preco*p2qtd)as total,p1totdes,p1totalb,p1totall ,P2PRECO, pdsecao "
-				+ "from cadp01,cadp02,cadpro where p1chave= 345640 and p1chave=p2chave and p2codpro=pdcodpro "
-				+ orderBy;
+				+ "from cadp01,cadp02,cadpro where p1chave= ? and p1chave=p2chave and p2codpro=pdcodpro " + orderBy;
 
 		try (Connection connection = FabricaDeConexao.getInstancia().getConnxao()) {
 			try (PreparedStatement statement = connection.prepareStatement(sql)) {
+				statement.setLong(1, ClientePO.getChave());
 				try (ResultSet resultSet = statement.executeQuery()) {
 					while (resultSet.next()) {
 						produtoTO = transferenciaResultSet(resultSet);

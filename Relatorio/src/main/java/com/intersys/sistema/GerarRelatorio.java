@@ -90,8 +90,8 @@ public class GerarRelatorio {
 			this.parameters.put("exibir_subgrupo", subgrupo);
 			this.parameters.put("exibir_grupo", grupo);
 			this.parameters.put("exibir_ambiente", ambiente);
-			this.parameters.put("Logo", new FileInputStream("C:/sge/LOGO0.JPG"));
 			this.parameters.put("con", connection);
+			this.parameters.put("Logo", new FileInputStream("C:/sge/LOGO0.JPG"));
 
 			InputStream relatorioSource = GerarRelatorio.class.getResourceAsStream("relatorio_pedido.jrxml");
 			ByteArrayOutputStream relatorioOutputCompiled = new ByteArrayOutputStream();

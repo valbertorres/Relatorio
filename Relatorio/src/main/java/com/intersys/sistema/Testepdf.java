@@ -1,6 +1,7 @@
 package com.intersys.sistema;
 
 import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
@@ -12,6 +13,7 @@ import java.util.Map;
 import com.intersys.relatorio.fabricaconexao.FabricaDeConexao;
 
 import net.sf.jasperreports.engine.JRDataSource;
+import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
@@ -19,18 +21,25 @@ import net.sf.jasperreports.view.JasperViewer;
 
 public class Testepdf {
 	public static void main(String[] args) throws Exception {
-		ProdutoFactory.setOrderBy("");
-//		ClientePO.setChave(345640);
+		ProdutoFactory.setOrderBy("order by pdnome asc");
+		ClientePO.setChave(345640);
 		Connection connection = FabricaDeConexao.getInstancia().getConnxao();
 		List<ProdutoTO> produtoTO = ProdutoFactory.listaProduto();
 		List<ClienteTO> cliente = ClientePO.Cliente();
 		JRDataSource jre = new JRBeanCollectionDataSource(produtoTO);
 		JRDataSource listaCliente = new JRBeanCollectionDataSource(cliente);
 
-		InputStream relatorioSource = GerarRelatorio.class.getResourceAsStream("Blank_A4.jasper");
+		InputStream relatorioSource = GerarRelatorio.class.getResourceAsStream("relatorio_pedido.jrxml");
+		ByteArrayOutputStream relatorioOutputCompiled = new ByteArrayOutputStream();
+		JasperCompileManager.compileReportToStream(relatorioSource, relatorioOutputCompiled);
+		byte[] compiledReportData = relatorioOutputCompiled.toByteArray();
+		relatorioOutputCompiled.close();
+		
+		
 		Map<String, Object> parameters = new HashMap();
 		parameters.put("data", connection);
-		JasperPrint jasperPrint = JasperFillManager.fillReport(relatorioSource,parameters, jre);
+		parameters.put("t", false);
+		JasperPrint jasperPrint = JasperFillManager.fillReport(new ByteArrayInputStream(compiledReportData), parameters, jre);
 		JasperViewer jasperViewer = new JasperViewer(jasperPrint, false);
 		jasperViewer.setExtendedState(JasperViewer.MAXIMIZED_BOTH);
 		jasperViewer.setVisible(true);
@@ -86,7 +95,8 @@ public class Testepdf {
 		//
 		try {
 			String sql = "select P1R_ARQUIVO_PDF from CADP01_REQUISICOES where p1r_chave=345642";
-//			Connection connection = FabricaDeConexao.getInstancia().getConnxao();
+			// Connection connection =
+			// FabricaDeConexao.getInstancia().getConnxao();
 			// PreparedStatement statement = connection.prepareStatement(null);
 			// ResultSet resultSet = statement.executeQuery();
 			// if( resultSet.next() ){

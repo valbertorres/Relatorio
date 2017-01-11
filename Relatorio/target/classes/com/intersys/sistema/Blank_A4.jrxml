@@ -1,20 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
-<!-- 2017-01-11T11:37:26 -->
+<!-- 2017-01-11T17:00:18 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Blank_A4" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="aadbc433-93db-4b2b-ae7f-0568b926287f">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="sge_produtos"/>
 	<parameter name="data" class="java.sql.Connection"/>
+	<parameter name="t" class="java.lang.Boolean"/>
 	<queryString>
 		<![CDATA[]]>
 	</queryString>
 	<field name="codigo" class="java.lang.Long">
 		<fieldDescription><![CDATA[codigo]]></fieldDescription>
 	</field>
+	<field name="nomeProduto" class="java.lang.String">
+		<fieldDescription><![CDATA[nomeProduto]]></fieldDescription>
+	</field>
+	<group name="Group1">
+		<groupExpression><![CDATA[$F{codigo}]]></groupExpression>
+		<groupHeader>
+			<band height="13">
+				<printWhenExpression><![CDATA[$P{t}==true ? false:true]]></printWhenExpression>
+				<staticText>
+					<reportElement x="177" y="0" width="100" height="13" uuid="391e3d67-7ffb-4b21-92e8-f496646912f1">
+						<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					</reportElement>
+					<text><![CDATA[nomeProduto]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="30" y="0" width="100" height="13" uuid="bee37d46-fc18-4d37-994f-066f9bde4d0c"/>
+					<text><![CDATA[codigo]]></text>
+				</staticText>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="50"/>
+		</groupFooter>
+	</group>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
 	<pageHeader>
-		<band height="95" splitType="Stretch">
+		<band height="84" splitType="Stretch">
 			<subreport>
 				<reportElement x="30" y="39" width="540" height="45" uuid="2e746360-db96-40fb-9eb8-bf3afe7069bf"/>
 				<connectionExpression><![CDATA[$P{data}]]></connectionExpression>
@@ -23,18 +48,31 @@
 		</band>
 	</pageHeader>
 	<columnHeader>
-		<band height="30" splitType="Stretch">
+		<band height="13" splitType="Stretch">
+			<printWhenExpression><![CDATA[$P{t}==true ? true:false]]></printWhenExpression>
 			<staticText>
-				<reportElement x="173" y="0" width="100" height="30" uuid="1b8fa895-435a-4b73-bc33-2677cc562767"/>
+				<reportElement x="30" y="0" width="100" height="13" uuid="1b8fa895-435a-4b73-bc33-2677cc562767"/>
 				<text><![CDATA[codigo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="177" y="0" width="100" height="13" uuid="0d411bf5-c983-4064-a30e-c4a003bd7b19">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<text><![CDATA[nomeProduto]]></text>
 			</staticText>
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="104" splitType="Stretch">
+		<band height="13" splitType="Stretch">
 			<textField>
-				<reportElement x="160" y="70" width="100" height="30" uuid="deada02c-d68e-43fb-acaf-aa67f2f8ab26"/>
+				<reportElement x="30" y="0" width="100" height="13" uuid="deada02c-d68e-43fb-acaf-aa67f2f8ab26"/>
 				<textFieldExpression><![CDATA[$F{codigo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="177" y="0" width="100" height="13" uuid="6eb25889-c959-40a4-a8a8-b25e8b41a9ae">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{nomeProduto}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
