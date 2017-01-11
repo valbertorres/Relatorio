@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
-<!-- 2017-01-03T16:52:09 -->
+<!-- 2017-01-11T14:13:09 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="sge_relatorio_empresa_nome" pageWidth="555" pageHeight="802" whenNoDataType="AllSectionsNoDetail" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="c7613c28-7065-4dbe-be59-9b5c4527a0d1">
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="sge-Cliente"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="subreporteoracle"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<parameter name="chave" class="java.lang.Long"/>
 	<queryString>
-		<![CDATA[]]>
+		<![CDATA[select crazao as "nome Cliente" from cadcli,cadp01 where  p1chave= $P{chave} and ccodcli=p1codcli]]>
 	</queryString>
-	<field name="nomeCliente" class="java.lang.String">
-		<fieldDescription><![CDATA[nomeCliente]]></fieldDescription>
-	</field>
+	<field name="nome Cliente" class="java.lang.String"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -23,7 +23,7 @@
 				<textElement>
 					<font fontName="Arial" size="12" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{nomeCliente}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{nome Cliente}]]></textFieldExpression>
 			</textField>
 		</band>
 	</columnFooter>

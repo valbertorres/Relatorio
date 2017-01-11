@@ -8,6 +8,8 @@ import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JOptionPane;
 
+import org.eclipse.persistence.jpa.jpql.parser.OrderByClauseBNF;
+
 public class ImpressaoCtrlVew {
 
 	private static ImpressaoCtrlVew instancia;
@@ -39,6 +41,11 @@ public class ImpressaoCtrlVew {
 	private JCheckBox boxImprimirAuto;
 
 	private String ordemOmpressao;
+	
+	boolean grupo = false;
+	boolean subGrupo = false;
+	boolean ambiente = false;
+	boolean sem = false;
 
 	public void inicializar() {
 		this.inicalizarComponente();
@@ -82,8 +89,14 @@ public class ImpressaoCtrlVew {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				selecaoimpressao();
-				System.out.println(ordemOmpressao);
-
+				agrupamento();
+				GerarRelatorio gerarRelatorio = new GerarRelatorio();
+				try {
+					gerarRelatorio.imprimirRelatorio(ordemOmpressao, 345640,grupo,subGrupo,ambiente);
+					System.out.println(ordemOmpressao);
+				} catch (Exception e1) {
+					e1.printStackTrace();
+				}
 			}
 		});
 
@@ -98,39 +111,70 @@ public class ImpressaoCtrlVew {
 
 	private void selecaoimpressao() {
 		if (this.boxAmbienteAgru.isSelected()) {
-			this.ordemOmpressao = "order by p2ambiente";
+			this.ordemOmpressao = "order by p2ambiente ASC";
 		}
 
 		if (this.boxCodProduto.isSelected()) {
-			this.ordemOmpressao = "order by pdcodpro";
+			this.ordemOmpressao = "order by pdcodpro ASC";
 		}
 
 		if (this.boxDescricao.isSelected()) {
-			this.ordemOmpressao = "order by pdnome";
+			this.ordemOmpressao = "order by pdnome ASC";
 		}
 
 		if (this.boxGruCodigo.isSelected()) {
-			this.ordemOmpressao = "order by pdcodgru,pdcodpro";
+			this.ordemOmpressao = "order by pdcodgru,pdcodpro ASC";
 		}
 
 		if (this.boxGruDescricao.isSelected()) {
-			this.ordemOmpressao = "order by pdcodgru,pdnome";
+			this.ordemOmpressao = "order by pdcodgru,pdnome ASC";
 		}
 
 		if (this.boxGruSubgruCodigo.isSelected()) {
-			this.ordemOmpressao = "order by pdcodgru,pdcodram,pdcodpro";
+			this.ordemOmpressao = "order by pdcodgru,pdcodram,pdcodpro ASC";
 		}
 
 		if (this.boxGruSubgruDescricao.isSelected()) {
-			this.ordemOmpressao = "order by pdcodgru,pdcodram,pdnome";
+			this.ordemOmpressao = "order by pdcodgru,pdcodram,pdnome ASC";
 		}
 
 		if (this.boxNumItem.isSelected()) {
-			this.ordemOmpressao = "order by p2item";
+			this.ordemOmpressao = "order by p2item ASC";
 		}
 
 		if (this.boxSecao.isSelected()) {
 			this.ordemOmpressao = "order by pdsecao";
+		}
+
+	}
+
+	private void agrupamento() {
+
+		if (this.boxAmbienteAgru.isSelected()) {
+		 this.grupo = false;
+			this.subGrupo = false;
+			this.ambiente = true;
+			this.sem = false;
+		}
+
+		if (this.boxGrupoAgru.isSelected()) {
+			this.grupo = true;
+			this.subGrupo = false;
+			this.ambiente = false;
+			this.sem = false;
+		}
+
+		if (this.boxGruSubgrupoAgru.isSelected()) {
+			this.grupo = false;
+			this.subGrupo = true;
+			this.ambiente = false;
+			this.sem = false;
+		}
+		if (this.boxSemAgru.isSelected()) {
+			this.grupo = false;
+			this.subGrupo = false;
+			this.ambiente = false;
+			this.sem = true;
 		}
 
 	}
@@ -146,7 +190,7 @@ public class ImpressaoCtrlVew {
 			if (gerarImpressaoTO.getTipoEvento() == tipoI) {
 				selecaoimpressao();
 				try {
-					gerarRelatorio.imprimirRelatorio(ordemOmpressao, gerarImpressaoTO.getChave());
+					gerarRelatorio.imprimirRelatorio(ordemOmpressao, gerarImpressaoTO.getChave(),grupo,subGrupo,ambiente);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}

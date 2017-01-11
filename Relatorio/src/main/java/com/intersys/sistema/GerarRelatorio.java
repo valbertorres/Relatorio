@@ -6,15 +6,19 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.intersys.relatorio.fabricaconexao.FabricaDeConexao;
+
 import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.JRExporter;
 import net.sf.jasperreports.engine.JRExporterParameter;
 import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
@@ -27,10 +31,6 @@ public class GerarRelatorio {
 	}
 
 	private Map<String, Object> parameters = new HashMap();
-
-	/**
-	 * 
-	 */
 
 	public static String VerificarCNPJ(String cnpj) throws SQLException, Exception {
 		StringBuffer cnpjBuffer = new StringBuffer();
@@ -64,23 +64,14 @@ public class GerarRelatorio {
 		return cnpj;
 	}
 
-	public void imprimirRelatorio(String orderBy, long chave) throws Exception {
-
+	public void imprimirRelatorio(String orderBy, long chave, boolean grupo, boolean subgrupo, boolean ambiente)
+			throws Exception {
+		Connection connection = FabricaDeConexao.getInstancia().getConnxao();
 		ProdutoFactory.setOrderBy(orderBy);
 		ClientePO.setChave(chave);
 		List<ProdutoTO> produtoTO = ProdutoFactory.listaProduto();
-		List<ClienteTO> cliente = ClientePO.Cliente();
-		List<ChaveTO> listaTipoChve = ChavePO.chave();
-		List<VenciementoTO> listaVencimento = VencimentoPO.vencimento();
-		List<ParcelasTO> listaparcelas = ParcelasPO.parcelas();
-		List<ClienteTO> nomecliente = ClientePO.Cliente();
 
 		JRDataSource jre = new JRBeanCollectionDataSource(produtoTO);
-		JRDataSource listaCliente = new JRBeanCollectionDataSource(cliente);
-		JRDataSource listaCahveTipo = new JRBeanCollectionDataSource(listaTipoChve);
-		JRDataSource listavencimeto = new JRBeanCollectionDataSource(listaVencimento);
-		JRDataSource listaParcelas = new JRBeanCollectionDataSource(listaparcelas);
-		JRDataSource nomeCliente = new JRBeanCollectionDataSource(nomecliente);
 
 		try {
 			EmpresaTO empresaTO = EmpresaPO.empresa();
@@ -96,17 +87,11 @@ public class GerarRelatorio {
 			this.parameters.put("empresa_uf", empresaTO.getUf());
 			this.parameters.put("empresa_email", empresaTO.getEmail());
 			this.parameters.put("p1chave", ClientePO.getChave());
-			this.parameters.put("exibir_group", true);
-			this.parameters.put("exibir_colum_header", true);
-			this.parameters.put("connection", listaCliente);
-			this.parameters.put("DataSource_chaveTipo", listaCahveTipo);
-			this.parameters.put("DataSource_Vencimento", listavencimeto);
-			this.parameters.put("DataSource_parcelas", listaParcelas);
-			this.parameters.put("DataSource_empresanome", nomeCliente);
-			this.parameters.put("exibir_subgrupo", false);
-			this.parameters.put("exibir_grupo", false);
-			this.parameters.put("exibir_ambiente", false);
+			this.parameters.put("exibir_subgrupo", subgrupo);
+			this.parameters.put("exibir_grupo", grupo);
+			this.parameters.put("exibir_ambiente", ambiente);
 			this.parameters.put("Logo", new FileInputStream("C:/sge/LOGO0.JPG"));
+			this.parameters.put("con", connection);
 
 			InputStream relatorioSource = GerarRelatorio.class.getResourceAsStream("relatorio_pedido.jrxml");
 			ByteArrayOutputStream relatorioOutputCompiled = new ByteArrayOutputStream();
@@ -116,22 +101,37 @@ public class GerarRelatorio {
 
 			JasperPrint jasperPrint = JasperFillManager.fillReport(new ByteArrayInputStream(compiledReportData),
 					this.parameters, jre);
-			JasperViewer jasperViewer = new JasperViewer(jasperPrint, false);
+			JasperViewer jasperViewer = new JasperViewer(jasperPrint, true);
 			jasperViewer.setExtendedState(JasperViewer.MAXIMIZED_BOTH);
 			jasperViewer.setVisible(true);
 			// JasperPrintManager.printPage(jasperPrint, 0, false);
-			// JasperExportManager.exportReportToPdfFile(jasperPrint,
-			// "C:/sge/relatorio2.pdf");
+
+			boolean sucesso;
+			String nomerelatorio = "teste";
+			String dir = "c:\\uploard" + "\\";
+			File file = new File(dir);
+			if (!file.exists()) {
+				sucesso = (new File(dir).mkdir());
+			}
+			File relatorio = new File(dir + nomerelatorio);
+			if (relatorio.exists()) {
+				relatorio.deleteOnExit();
+			}
 			GerarImpressaoTO gerarImpressaoTO = new GerarImpressaoTO();
 			JRExporter exporter = new JRPdfExporter();
 			exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
-			exporter.setParameter(JRExporterParameter.OUTPUT_FILE_NAME, "relatorio2.pdf");
+			exporter.setParameter(JRExporterParameter.OUTPUT_FILE_NAME, dir + "/" + nomerelatorio + ".pdf");
 			exporter.exportReport();
-//			File file = new File("/Relatorio/relatorio.pdf");
-//			gerarImpressaoTO.setFile(file);
-//			GerarImpressaoPO gerarImpressaoPO = new GerarImpressaoPO();
-//			gerarImpressaoPO.setGerarImpressaoTO(gerarImpressaoTO);
-//			gerarImpressaoPO.inserirPdf();
+			System.out.println("relatorio criado com sucesso");
+
+			// JasperExportManager.exportReportToPdfFile(jasperPrint,
+			// dir+"/"+"relatorio.pdf");
+
+			// File file = new File("/Relatorio/relatorio.pdf");
+			// gerarImpressaoTO.setFile(file);
+			// GerarImpressaoPO gerarImpressaoPO = new GerarImpressaoPO();
+			// gerarImpressaoPO.setGerarImpressaoTO(gerarImpressaoTO);
+			// gerarImpressaoPO.inserirPdf();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -141,28 +141,26 @@ public class GerarRelatorio {
 
 	static GerarRelatorio gerarRelatorio = new GerarRelatorio();
 
-//	public static void main(String[] args) throws SQLException, Exception {
+	public static void main(String[] args) throws SQLException, Exception {
 
-//		 int lista = lista1().size();
-//		 if (lista != 0) {
-//		gerarRelatorio.imprimirRelatorio("order by pdnome", 345640);
-//		 }
+		// gerarRelatorio.imprimirRelatorio("order by pdnome", 345640);
+		System.out.println("!");
 
-//	}
-	
-	public static void main(String[] args) {
-		GerarImpressaoTO gerarImpressaoTO = new GerarImpressaoTO();
-		gerarImpressaoTO.setCaminho("C:/Users/PROGRAMADOR-02/Desktop/relatorio/teste-master/Relatorio/relatorio2.pdf");
-		GerarImpressaoPO gerarImpressaoPO = new GerarImpressaoPO();
-		gerarImpressaoPO.setGerarImpressaoTO(gerarImpressaoTO);
-		try {
-			gerarImpressaoPO.inserirPdf();
-			System.out.println("salvo com sucesso");
-		} catch (Exception e) {
-
-			e.printStackTrace();
-		}
 	}
+
+	// public static void main(String[] args) {
+	// GerarImpressaoTO gerarImpressaoTO = new GerarImpressaoTO();
+	// gerarImpressaoTO.setCaminho("C:/Users/PROGRAMADOR-02/Desktop/relatorio/teste-master/Relatorio/relatorio2.pdf");
+	// GerarImpressaoPO gerarImpressaoPO = new GerarImpressaoPO();
+	// gerarImpressaoPO.setGerarImpressaoTO(gerarImpressaoTO);
+	// try {
+	// gerarImpressaoPO.inserirPdf();
+	// System.out.println("salvo com sucesso");
+	// } catch (Exception e) {
+	//
+	// e.printStackTrace();
+	// }
+	// }
 
 	public Map<String, Object> getParameters() {
 		return parameters;
@@ -171,7 +169,5 @@ public class GerarRelatorio {
 	public void setParameters(Map<String, Object> parameters) {
 		this.parameters = parameters;
 	}
-	
-	
 
 }

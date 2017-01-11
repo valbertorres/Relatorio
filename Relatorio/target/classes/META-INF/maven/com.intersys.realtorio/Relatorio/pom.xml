@@ -22,9 +22,10 @@
 		<dependency>
 			<groupId>com.oracle</groupId>
 			<artifactId>ojdbc14</artifactId>
-			<version>10.2.0.2.0</version>
+			<version>10.2.0.3.0</version>
 		</dependency>
-		
+
+
 		<!-- C3p0 (utilidades) -->
 		<dependency>
 			<groupId>com.mchange</groupId>
