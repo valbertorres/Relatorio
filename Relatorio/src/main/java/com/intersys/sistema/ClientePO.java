@@ -33,12 +33,12 @@ public class ClientePO {
 				+ "p1orc_prazoent as prazo_de_entrega, p1orc_valpro as valido,"
 				+ "cpontor as pontoreferencia ,crazao,cdenom,cenderc,cbairro,ccidadec,cuf,"
 				+ "VNOME,cnomven,cfone01,cie,ccep,ccnpj, p1datap as data from cadp01,CADVEN,"
-				+ "cadcli,cadp01_orc where p1chave=345640 " + "and ccodcli=p1codcli  and vcodven=P1CODVEN  "
+				+ "cadcli,cadp01_orc where p1chave=? " + "and ccodcli=p1codcli  and vcodven=P1CODVEN  "
 				+ "and p1chave=p1orc_chave  ";
 
 		try (Connection connection = FabricaDeConexao.getInstancia().getConnxao()) {
 			try (PreparedStatement statement = connection.prepareStatement(sql.toString())) {
-//				statement.setLong(1, chave);
+				 statement.setLong(1, chave);
 				try (ResultSet resultSet = statement.executeQuery()) {
 					while (resultSet.next()) {
 						clienteTO = transferenciadeResultSet(resultSet);
@@ -60,7 +60,7 @@ public class ClientePO {
 		clienteTO.setBairro(resultSet.getString("cbairro"));
 		clienteTO.setCep(resultSet.getString("ccep"));
 		clienteTO.setCiadade(resultSet.getString("ccidadec"));
-		cnpj=(resultSet.getString("ccnpj"));
+		cnpj = (resultSet.getString("ccnpj"));
 		clienteTO.setCnpj(GerarRelatorio.VerificarCNPJ(cnpj));
 		clienteTO.setData(resultSet.getString("data"));
 		clienteTO.setEndereco(resultSet.getString("cenderc"));
@@ -78,8 +78,7 @@ public class ClientePO {
 		return clienteTO;
 	}
 
-
-public static long getChave() {
+	public static long getChave() {
 		return chave;
 	}
 
@@ -87,13 +86,13 @@ public static long getChave() {
 		ClientePO.chave = chave;
 	}
 
-public static void main(String[] args) {
-	ClienteTO clienteTO = new ClienteTO();
-	chave = 345640;
-	
-	 for(ClienteTO clienteTO2 :Cliente()){
-		 System.out.println(clienteTO2.getCnpj());
-	 }
-	
-}
+	public static void main(String[] args) {
+		ClienteTO clienteTO = new ClienteTO();
+		chave = 345640;
+
+		for (ClienteTO clienteTO2 : Cliente()) {
+			System.out.println(clienteTO2.getCnpj());
+		}
+
+	}
 }

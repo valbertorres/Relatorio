@@ -9,6 +9,16 @@ public class GerarImpressaoTO {
 	private String impressoraPadrão;
 	private File file;
 	private String caminho;
+	private int id;
+
+	
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
 
 	public String getCaminho() {
 		return caminho;

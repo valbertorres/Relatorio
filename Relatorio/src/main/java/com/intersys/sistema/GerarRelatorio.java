@@ -122,7 +122,15 @@ public class GerarRelatorio {
 			exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
 			exporter.setParameter(JRExporterParameter.OUTPUT_FILE_NAME, dir + "/" + nomerelatorio + ".pdf");
 			exporter.exportReport();
-			System.out.println("relatorio criado com sucesso");
+
+			gerarImpressaoTO.setCaminho(dir + "/" + nomerelatorio + ".pdf");
+			GerarImpressaoPO gerarImpressaoPO = new GerarImpressaoPO();
+			gerarImpressaoPO.setGerarImpressaoTO(gerarImpressaoTO);
+
+			File fileapagando = new File(dir + "/" + nomerelatorio + ".pdf");
+			System.out.println("salvo");
+			// fileapagando.delete();
+			// System.out.println("apagnado");
 
 			// JasperExportManager.exportReportToPdfFile(jasperPrint,
 			// dir+"/"+"relatorio.pdf");
@@ -141,12 +149,13 @@ public class GerarRelatorio {
 
 	static GerarRelatorio gerarRelatorio = new GerarRelatorio();
 
-	public static void main(String[] args) throws SQLException, Exception {
-
-		// gerarRelatorio.imprimirRelatorio("order by pdnome", 345640);
-		System.out.println("!");
-
-	}
+	// public static void main(String[] args) throws SQLException, Exception {
+	//
+	// gerarRelatorio.imprimirRelatorio("order by pdnome", 345642, false, false,
+	// false);
+	// System.out.println("!");
+	//
+	// }
 
 	// public static void main(String[] args) {
 	// GerarImpressaoTO gerarImpressaoTO = new GerarImpressaoTO();

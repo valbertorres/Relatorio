@@ -4,11 +4,19 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import javax.print.PrintService;
+import javax.print.PrintServiceLookup;
 
 import com.intersys.relatorio.fabricaconexao.FabricaDeConexao;
 
@@ -34,16 +42,29 @@ public class Testepdf {
 		JasperCompileManager.compileReportToStream(relatorioSource, relatorioOutputCompiled);
 		byte[] compiledReportData = relatorioOutputCompiled.toByteArray();
 		relatorioOutputCompiled.close();
-		
-		
+
 		Map<String, Object> parameters = new HashMap();
 		parameters.put("data", connection);
 		parameters.put("t", false);
-		JasperPrint jasperPrint = JasperFillManager.fillReport(new ByteArrayInputStream(compiledReportData), parameters, jre);
-		JasperViewer jasperViewer = new JasperViewer(jasperPrint, false);
-		jasperViewer.setExtendedState(JasperViewer.MAXIMIZED_BOTH);
-		jasperViewer.setVisible(true);
+//		JasperPrint jasperPrint = JasperFillManager.fillReport(new ByteArrayInputStream(compiledReportData), parameters,
+//				jre);
+//		JasperViewer jasperViewer = new JasperViewer(jasperPrint, false);
+//		jasperViewer.setExtendedState(JasperViewer.MAXIMIZED_BOTH);
+//		jasperViewer.setVisible(true);
 
+		PrintService service = PrintServiceLookup.lookupDefaultPrintService();
+		
+		
+
+
+		PrintService[] listaImpressora = PrintServiceLookup.lookupPrintServices(null, null); // Pegando
+																								// lista
+																								// de
+																								// impressoras
+
+		for (PrintService printService : listaImpressora) {
+			System.out.println(printService);
+		}
 		// try {
 		// String sql = "update CADP01_REQUISICOES set P1R_ARQUIVO_PDF=?
 		// where p1r_chave=345642";
@@ -94,7 +115,7 @@ public class Testepdf {
 		// }
 		//
 		try {
-			String sql = "select P1R_ARQUIVO_PDF from CADP01_REQUISICOES where p1r_chave=345642";
+//			String sql = "select P1R_ARQUIVO_PDF from CADP01_REQUISICOES where p1r_chave=345642";
 			// Connection connection =
 			// FabricaDeConexao.getInstancia().getConnxao();
 			// PreparedStatement statement = connection.prepareStatement(null);

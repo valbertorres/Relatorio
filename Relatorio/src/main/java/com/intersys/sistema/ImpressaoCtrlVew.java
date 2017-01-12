@@ -38,10 +38,10 @@ public class ImpressaoCtrlVew {
 	private JCheckBox boxAmbienteAgru;
 	private JCheckBox boxSemAgru;
 	private JCheckBox boxGruSubgrupoAgru;
-	private JCheckBox boxImprimirAuto;
+	private static JCheckBox boxImprimirAuto;
 
 	private String ordemOmpressao;
-	
+
 	boolean grupo = false;
 	boolean subGrupo = false;
 	boolean ambiente = false;
@@ -50,8 +50,8 @@ public class ImpressaoCtrlVew {
 	public void inicializar() {
 		this.inicalizarComponente();
 		this.inicializarListene();
-		// Tempo imprimirAuto = new tempo();
-		// imprimirAuto.start();
+		Tempo imprimirAuto = new Tempo();
+		imprimirAuto.start();
 	}
 
 	private void inicalizarComponente() {
@@ -92,7 +92,7 @@ public class ImpressaoCtrlVew {
 				agrupamento();
 				GerarRelatorio gerarRelatorio = new GerarRelatorio();
 				try {
-					gerarRelatorio.imprimirRelatorio(ordemOmpressao, 345640,grupo,subGrupo,ambiente);
+					gerarRelatorio.imprimirRelatorio(ordemOmpressao, 345640, grupo, subGrupo, ambiente);
 					System.out.println(ordemOmpressao);
 				} catch (Exception e1) {
 					e1.printStackTrace();
@@ -151,7 +151,7 @@ public class ImpressaoCtrlVew {
 	private void agrupamento() {
 
 		if (this.boxAmbienteAgru.isSelected()) {
-		 this.grupo = false;
+			this.grupo = false;
 			this.subGrupo = false;
 			this.ambiente = true;
 			this.sem = false;
@@ -181,21 +181,28 @@ public class ImpressaoCtrlVew {
 
 	public void imprimirAuto() {
 		GerarRelatorio gerarRelatorio = new GerarRelatorio();
-		String tipoI = "I";
+		String tipoI = "V";
 		String tipoB = "B";
 		String tipoV = "V";
 		List<GerarImpressaoTO> listaImpressao = GerarImpressaoPO.getinstancia().impressaoLista();
+		GerarImpressaoPO gerarImpressaoPO = new GerarImpressaoPO();
 
 		for (GerarImpressaoTO gerarImpressaoTO : listaImpressao) {
-			if (gerarImpressaoTO.getTipoEvento() == tipoI) {
+			tipoI = gerarImpressaoTO.getTipoEvento(); 
+			switch (tipoI){
+			
+			case "A":
+				System.out.println(gerarImpressaoTO.getTipoEvento());
 				selecaoimpressao();
 				try {
-					gerarRelatorio.imprimirRelatorio(ordemOmpressao, gerarImpressaoTO.getChave(),grupo,subGrupo,ambiente);
+					gerarRelatorio.imprimirRelatorio(ordemOmpressao, gerarImpressaoTO.getChave(), grupo, subGrupo,
+							ambiente);
+					gerarImpressaoPO.inserirPdf(gerarImpressaoTO.getChave());
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
+				break;
 			}
-			GerarImpressaoPO.getinstancia().atualizar();
 		}
 
 	}
@@ -239,6 +246,8 @@ public class ImpressaoCtrlVew {
 
 		public void run() {
 			while (true) {
+				// if (boxImprimirAuto.isSelected()) {
+
 				try {
 					Thread.sleep(1000);
 					i++;
@@ -249,17 +258,18 @@ public class ImpressaoCtrlVew {
 				switch (i) {
 				case 10:
 					try {
-						if (GerarImpressaoPO.getinstancia().getGerarImpressaoTO().equals("I")) {
-							imprimirAuto();
-						} else {
-							i = 0;
-						}
+//						if (GerarImpressaoPO.getinstancia().getGerarImpressaoTO().equals("V")) {
+						imprimirAuto();
+//						} else {
+//							i = 0;
+//						}
 						i = 0;
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
 				}
 
+//				 }
 			}
 		}
 	}

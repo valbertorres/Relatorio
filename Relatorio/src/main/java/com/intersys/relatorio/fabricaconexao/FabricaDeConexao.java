@@ -7,6 +7,8 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.util.Properties;
 
+import org.bouncycastle.asn1.x509.SubjectPublicKeyInfo;
+
 public class FabricaDeConexao {
 
 	private static String usuario = "";
@@ -41,10 +43,9 @@ public class FabricaDeConexao {
 		url = url.replace("ip", IP);
 		url = url.replace("servico", servico);
 		usuario = properties.getProperty("USUARIO");
-		
+
 		Class.forName(driver);
 		Connection connection = DriverManager.getConnection(url, usuario, senha);
 		return connection;
 	}
-	
 }

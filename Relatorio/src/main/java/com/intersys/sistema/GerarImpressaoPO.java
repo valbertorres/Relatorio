@@ -49,30 +49,51 @@ public class GerarImpressaoPO {
 		return listaImpressao;
 	}
 
-	public void atualizar() {
-		String sql = "update cadp01_requisicoes set p1r_tipo_evento=null where p1r_chave=?";
+	// public void atualizar() {
+	// String sql = "update cadp01_requisicoes set where p1r_chave=?";
+	//
+	// try (Connection connection =
+	// FabricaDeConexao.getInstancia().getConnxao()) {
+	// try (PreparedStatement statement = connection.prepareStatement(sql)) {
+	// statement.setLong(1, gerarImpressaoTO.getChave());
+	// statement.execute();
+	// }
+	// } catch (SQLException e) {
+	// e.printStackTrace();
+	// } catch (Exception e) {
+	// e.printStackTrace();
+	// }
+	// }
+
+	public GerarImpressaoTO id() {
+		String sql = "select p1r_id from cadp01 where p1r_chave==?";
 
 		try (Connection connection = FabricaDeConexao.getInstancia().getConnxao()) {
 			try (PreparedStatement statement = connection.prepareStatement(sql)) {
-				statement.setLong(1, gerarImpressaoTO.getChave());
-				statement.execute();
+				try (ResultSet resultSet = statement.executeQuery()) {
+					while (resultSet.next()) {
+						gerarImpressaoTO.setId(resultSet.getInt("p1r_id"));
+					}
+				}
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		return gerarImpressaoTO;
 	}
 
-	public void inserirPdf() {
-		String sql = "update CADP01_REQUISICOES set P1R_ARQUIVO_PDF=? where p1r_chave=345642";
-		File arquivo = new File(this.getGerarImpressaoTO().getCaminho());
+	public void inserirPdf(long chave) {
+		String sql = "update CADP01_REQUISICOES set P1R_ARQUIVO_PDF=?,p1r_dathor_porc=sysdate where p1r_id=?";
+		File arquivo = new File(gerarImpressaoTO.getCaminho());
 		try {
 			FileInputStream file = new FileInputStream(arquivo);
 
 			try (Connection connection = FabricaDeConexao.getInstancia().getConnxao()) {
 				try (PreparedStatement statement = connection.prepareStatement(sql)) {
 					statement.setBinaryStream(1, file, arquivo.length());
+					statement.setLong(2, chave);
 					statement.executeQuery();
 				}
 			} catch (SQLException e) {
@@ -86,6 +107,10 @@ public class GerarImpressaoPO {
 
 	}
 
+	// public long chave(){
+	// String sql ="select p1r_chave from cadp01_requisicoes ";
+	// }
+
 	private static GerarImpressaoTO transferenciaResultset(ResultSet resultSet) throws SQLException {
 		GerarImpressaoTO gerarImpressaoTO = new GerarImpressaoTO();
 
@@ -96,11 +121,6 @@ public class GerarImpressaoPO {
 		return gerarImpressaoTO;
 	}
 
-	public static void main(String[] args) {
-		for (GerarImpressaoTO gerarImpressaoTO : GerarImpressaoPO.getinstancia().impressaoLista()) {
-			System.out.println(gerarImpressaoTO.getChave());
-		}
-	}
 
 	public GerarImpressaoTO getGerarImpressaoTO() {
 		return gerarImpressaoTO;
@@ -109,5 +129,4 @@ public class GerarImpressaoPO {
 	public void setGerarImpressaoTO(GerarImpressaoTO gerarImpressaoTO) {
 		this.gerarImpressaoTO = gerarImpressaoTO;
 	}
-
 }
