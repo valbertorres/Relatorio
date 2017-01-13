@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
-<!-- 2017-01-11T17:18:07 -->
+<!-- 2017-01-13T14:34:32 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="relatorio_pedido" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isFloatColumnFooter="true" uuid="c1adbe20-d8c6-41af-bf22-8a1484a66f91">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="sge_relatorio_produto"/>
 	<parameter name="empresa_cnpj" class="java.lang.String"/>
@@ -1142,7 +1142,7 @@
 				<text><![CDATA[Forma de Pagamento:
 Transportadora:]]></text>
 			</staticText>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="10" y="180" width="460" height="13" uuid="c535c7cc-2646-4899-9ac3-16add3081ce9">
 					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
 				</reportElement>
@@ -1178,7 +1178,7 @@ Local e Data:
 Obs: O de acordo dará a mesma força de pedido.]]></text>
 			</staticText>
 			<subreport>
-				<reportElement x="270" y="210" width="232" height="15" uuid="f416e5ae-9c72-474d-991c-07f333c128b8">
+				<reportElement x="240" y="210" width="284" height="15" uuid="f416e5ae-9c72-474d-991c-07f333c128b8">
 					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
 				</reportElement>
 				<subreportParameter name="chave">
@@ -1196,7 +1196,7 @@ Obs: O de acordo dará a mesma força de pedido.]]></text>
 				</reportElement>
 			</line>
 			<line>
-				<reportElement x="270" y="210" width="200" height="1" uuid="85dc0c08-51cb-4086-a070-578cbbb75fcd">
+				<reportElement x="240" y="210" width="200" height="1" uuid="85dc0c08-51cb-4086-a070-578cbbb75fcd">
 					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>

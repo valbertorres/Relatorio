@@ -188,7 +188,7 @@ public class ImpressaoCtrlVew {
 
 		for (GerarImpressaoTO gerarImpressaoTO : gerarImpressaoPO.impressaoLista()) {
 			if (gerarImpressaoTO.getTipoEvento().equals("A")) {
-
+				System.out.println(gerarImpressaoTO.getChave());
 				System.out.println(gerarImpressaoTO.getTipoEvento());
 				selecaoimpressao();
 				try {
@@ -200,9 +200,9 @@ public class ImpressaoCtrlVew {
 			}
 			if (gerarImpressaoTO.getTipoEvento().equals("I")) {
 				System.out.println(gerarImpressaoTO.getTipoEvento());
+				System.out.println(gerarImpressaoTO.getChave());
 				selecaoimpressao();
 				try {
-					System.out.println("entrou no I");
 					gerarRelatorio.imprimirRelatorio(ordemOmpressao, gerarImpressaoTO.getChave(),
 							gerarImpressaoTO.getId(), grupo, subGrupo, ambiente, gerarImpressaoTO.getTipoEvento());
 
@@ -214,7 +214,8 @@ public class ImpressaoCtrlVew {
 			if (gerarImpressaoTO.getTipoEvento().equals("V")) {
 				selecaoimpressao();
 				try {
-					System.out.println("entrou no I");
+					System.out.println("entrou no V");
+					System.out.println(gerarImpressaoTO.getChave());
 					gerarRelatorio.imprimirRelatorio(ordemOmpressao, gerarImpressaoTO.getChave(),
 							gerarImpressaoTO.getId(), grupo, subGrupo, ambiente, gerarImpressaoTO.getTipoEvento());
 

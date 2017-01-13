@@ -1,9 +1,7 @@
 package com.intersys.sistema;
 
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.nio.file.Files;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -48,22 +46,6 @@ public class GerarImpressaoPO {
 		return listaImpressao;
 	}
 
-	// public void atualizar() {
-	// String sql = "update cadp01_requisicoes set where p1r_chave=?";
-	//
-	// try (Connection connection =
-	// FabricaDeConexao.getInstancia().getConnxao()) {
-	// try (PreparedStatement statement = connection.prepareStatement(sql)) {
-	// statement.setLong(1, gerarImpressaoTO.getChave());
-	// statement.execute();
-	// }
-	// } catch (SQLException e) {
-	// e.printStackTrace();
-	// } catch (Exception e) {
-	// e.printStackTrace();
-	// }
-	// }
-
 	public GerarImpressaoTO id() {
 		String sql = "select p1r_id from cadp01 where p1r_chave==?";
 
@@ -106,10 +88,6 @@ public class GerarImpressaoPO {
 		}
 
 	}
-
-	// public long chave(){
-	// String sql ="select p1r_chave from cadp01_requisicoes ";
-	// }
 
 	private static GerarImpressaoTO transferenciaResultset(ResultSet resultSet) throws SQLException {
 		GerarImpressaoTO gerarImpressaoTO = new GerarImpressaoTO();

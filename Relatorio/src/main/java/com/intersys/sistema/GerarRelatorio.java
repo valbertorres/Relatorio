@@ -122,19 +122,19 @@ public class GerarRelatorio {
 					this.parameters, jre);
 			JasperViewer jasperViewer = new JasperViewer(jasperPrint, false);
 			jasperViewer.setExtendedState(JasperViewer.MAXIMIZED_BOTH);
-//			jasperViewer.setVisible(true);
+			// jasperViewer.setVisible(true);
 			// JasperPrintManager.printPage(jasperPrint, 0, false);
 
 			boolean sucesso;
-			this.nomerelatorio = "teste";
+			this.nomerelatorio = String.valueOf(chave);
 			this.dir = "c:\\uploard" + "\\";
 			File file = new File(dir);
 			if (!file.exists()) {
-				sucesso = (new File(dir).mkdir());
+				file.mkdir();
 			}
-			File relatorio = new File(dir + nomerelatorio);
+			File relatorio = new File(dir + nomerelatorio + ".pdf");
 			if (relatorio.exists()) {
-				relatorio.deleteOnExit();
+				relatorio.delete();
 			}
 			GerarImpressaoTO gerarImpressaoTO = new GerarImpressaoTO();
 			JRExporter exporter = new JRPdfExporter();
@@ -148,8 +148,8 @@ public class GerarRelatorio {
 			GerarImpressaoPO gerarImpressaoPO = new GerarImpressaoPO();
 			gerarImpressaoPO.setGerarImpressaoTO(gerarImpressaoTO);
 			gerarImpressaoPO.inserirPdf(id);
-			if(tipo.equals("A")){
-				fileapagando.delete();
+			if (tipo.equals("A")) {
+				file.delete();
 			}
 			if (tipo.equals("I")) {
 				PrintService impressoraPadrao = PrintServiceLookup.lookupDefaultPrintService();
@@ -159,9 +159,9 @@ public class GerarRelatorio {
 					FileInputStream inputStream = new FileInputStream(fileapagando);
 					Doc doc = new SimpleDoc(inputStream, docFlavor, docAttributeSet);
 					PrintRequestAttributeSet printRequestAttributeSet = new HashPrintRequestAttributeSet();
-						DocPrintJob job = impressoraPadrao.createPrintJob();
-						job.print(doc, printRequestAttributeSet);
-						fileapagando.delete();
+					DocPrintJob job = impressoraPadrao.createPrintJob();
+					job.print(doc, printRequestAttributeSet);
+					file.delete();
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -170,11 +170,9 @@ public class GerarRelatorio {
 			if (tipo.equals("V")) {
 				File pdf = new File(dir + "" + this.nomerelatorio + ".pdf");
 				Desktop.getDesktop().open(pdf);
+				file.delete();
 				System.out.println("open");
 			}
-
-			System.out.println("salvo");
-			// System.out.println("apagnado");
 
 			// JasperExportManager.exportReportToPdfFile(jasperPrint,
 			// dir+"/"+"relatorio.pdf");
