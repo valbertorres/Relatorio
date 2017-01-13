@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
-<!-- 2017-01-13T14:31:39 -->
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="sge_relatorio_empresa_nome" pageWidth="284" pageHeight="802" whenNoDataType="AllSectionsNoDetail" columnWidth="284" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="c7613c28-7065-4dbe-be59-9b5c4527a0d1">
+<!-- 2017-01-13T16:20:27 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="sge_relatorio_empresa_nome" pageWidth="555" pageHeight="802" whenNoDataType="AllSectionsNoDetail" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="c7613c28-7065-4dbe-be59-9b5c4527a0d1">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="subreporteoracle"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<parameter name="chave" class="java.lang.Long"/>
@@ -17,12 +17,12 @@ and ccodcli=p1codcli]]>
 	<columnFooter>
 		<band height="14" splitType="Stretch">
 			<textField>
-				<reportElement x="0" y="0" width="284" height="14" uuid="f4a4711d-49bb-4c8c-acd8-b83b19a0df56">
+				<reportElement x="0" y="0" width="555" height="14" uuid="f4a4711d-49bb-4c8c-acd8-b83b19a0df56">
 					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
 				</reportElement>
-				<textElement>
+				<textElement textAlignment="Right">
 					<font fontName="Arial" size="12" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{nome Cliente}]]></textFieldExpression>

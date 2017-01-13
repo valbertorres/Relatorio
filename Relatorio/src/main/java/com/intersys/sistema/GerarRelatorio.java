@@ -125,43 +125,36 @@ public class GerarRelatorio {
 			// jasperViewer.setVisible(true);
 			// JasperPrintManager.printPage(jasperPrint, 0, false);
 
-			boolean sucesso;
-			this.nomerelatorio = String.valueOf(chave);
+			this.nomerelatorio = String.valueOf(chave) + "" + id;
 			this.dir = "c:\\uploard" + "\\";
 			File file = new File(dir);
 			if (!file.exists()) {
 				file.mkdir();
 			}
-			File relatorio = new File(dir + nomerelatorio + ".pdf");
-			if (relatorio.exists()) {
-				relatorio.delete();
-			}
+
 			GerarImpressaoTO gerarImpressaoTO = new GerarImpressaoTO();
 			JRExporter exporter = new JRPdfExporter();
 			exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
 			exporter.setParameter(JRExporterParameter.OUTPUT_FILE_NAME, dir + "/" + nomerelatorio + ".pdf");
 			exporter.exportReport();
 			dir = dir.replace("\\", "/");
-			File fileapagando = new File(dir + "" + this.nomerelatorio + ".pdf");
+			File diretorio = new File(dir + "" + this.nomerelatorio + ".pdf");
 			System.out.println(dir + "" + this.nomerelatorio + ".pdf");
-			gerarImpressaoTO.setFile(fileapagando);
+			gerarImpressaoTO.setFile(diretorio);
 			GerarImpressaoPO gerarImpressaoPO = new GerarImpressaoPO();
 			gerarImpressaoPO.setGerarImpressaoTO(gerarImpressaoTO);
 			gerarImpressaoPO.inserirPdf(id);
-			if (tipo.equals("A")) {
-				file.delete();
-			}
+
 			if (tipo.equals("I")) {
 				PrintService impressoraPadrao = PrintServiceLookup.lookupDefaultPrintService();
 				DocFlavor docFlavor = DocFlavor.INPUT_STREAM.AUTOSENSE;
 				HashDocAttributeSet docAttributeSet = new HashDocAttributeSet();
 				try {
-					FileInputStream inputStream = new FileInputStream(fileapagando);
+					FileInputStream inputStream = new FileInputStream(diretorio);
 					Doc doc = new SimpleDoc(inputStream, docFlavor, docAttributeSet);
 					PrintRequestAttributeSet printRequestAttributeSet = new HashPrintRequestAttributeSet();
 					DocPrintJob job = impressoraPadrao.createPrintJob();
 					job.print(doc, printRequestAttributeSet);
-					file.delete();
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -170,13 +163,18 @@ public class GerarRelatorio {
 			if (tipo.equals("V")) {
 				File pdf = new File(dir + "" + this.nomerelatorio + ".pdf");
 				Desktop.getDesktop().open(pdf);
-				file.delete();
 				System.out.println("open");
 			}
 
 			// JasperExportManager.exportReportToPdfFile(jasperPrint,
 			// dir+"/"+"relatorio.pdf");
-
+			if (file.isDirectory()) {
+				File[] countFile = file.listFiles();
+				for (File toDelete : countFile) {
+					toDelete.delete();
+				}
+			}
+			file.delete();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
