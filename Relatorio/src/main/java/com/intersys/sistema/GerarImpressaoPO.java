@@ -29,8 +29,7 @@ public class GerarImpressaoPO {
 	public List<GerarImpressaoTO> impressaoLista() {
 		GerarImpressaoTO gerarImpressaoTO = new GerarImpressaoTO();
 		List<GerarImpressaoTO> listaImpressao = new ArrayList<>();
-		String sql = "SELECT P1R_CHAVE, P1R_CODEMP,P1R_TIPO_EVENTO,P1R_ARQUIVO_PDF,P1R_IMPRESSORA_PADRAO "
-				+ "FROM CADP01_REQUISICOES";
+		String sql = "select p1r_tipo_evento,p1r_id,p1r_chave from cadp01_requisicoes where p1r_dathor_proc is  null";
 
 		try (Connection connection = FabricaDeConexao.getInstancia().getConnxao()) {
 			try (PreparedStatement statement = connection.prepareStatement(sql)) {
@@ -84,17 +83,18 @@ public class GerarImpressaoPO {
 		return gerarImpressaoTO;
 	}
 
-	public void inserirPdf(long chave) {
-		String sql = "update CADP01_REQUISICOES set P1R_ARQUIVO_PDF=?,p1r_dathor_porc=sysdate where p1r_id=?";
-		File arquivo = new File(gerarImpressaoTO.getCaminho());
+	public void inserirPdf(long id) {
+		System.out.println(id);
+		String sql = "update CADP01_REQUISICOES set p1r_dathor_proc=sysdate, P1R_ARQUIVO_PDF=? where p1r_id=? and p1r_dathor_proc is null";
 		try {
-			FileInputStream file = new FileInputStream(arquivo);
+			FileInputStream file = new FileInputStream(gerarImpressaoTO.getFile());
 
 			try (Connection connection = FabricaDeConexao.getInstancia().getConnxao()) {
 				try (PreparedStatement statement = connection.prepareStatement(sql)) {
-					statement.setBinaryStream(1, file, arquivo.length());
-					statement.setLong(2, chave);
-					statement.executeQuery();
+					statement.setLong(2, id);
+					statement.setBinaryStream(1, file, (int) this.gerarImpressaoTO.getFile().length());
+					statement.execute();
+					connection.commit();
 				}
 			} catch (SQLException e) {
 				e.printStackTrace();
@@ -115,12 +115,12 @@ public class GerarImpressaoPO {
 		GerarImpressaoTO gerarImpressaoTO = new GerarImpressaoTO();
 
 		gerarImpressaoTO.setChave(resultSet.getLong("p1r_chave"));
+		gerarImpressaoTO.setId(resultSet.getInt("p1r_id"));
 		gerarImpressaoTO.setTipoEvento(resultSet.getString("p1r_tipo_evento"));
-		gerarImpressaoTO.setImpressoraPadrão(resultSet.getString("p1r_impressora_padrao"));
+		// gerarImpressaoTO.setImpressoraPadrão(resultSet.getString("p1r_impressora_padrao"));
 
 		return gerarImpressaoTO;
 	}
-
 
 	public GerarImpressaoTO getGerarImpressaoTO() {
 		return gerarImpressaoTO;
@@ -129,4 +129,5 @@ public class GerarImpressaoPO {
 	public void setGerarImpressaoTO(GerarImpressaoTO gerarImpressaoTO) {
 		this.gerarImpressaoTO = gerarImpressaoTO;
 	}
+
 }

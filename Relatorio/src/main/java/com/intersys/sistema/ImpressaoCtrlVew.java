@@ -2,6 +2,8 @@ package com.intersys.sistema;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.print.PrinterException;
+import java.awt.print.PrinterJob;
 import java.util.List;
 
 import javax.swing.JButton;
@@ -92,7 +94,8 @@ public class ImpressaoCtrlVew {
 				agrupamento();
 				GerarRelatorio gerarRelatorio = new GerarRelatorio();
 				try {
-					gerarRelatorio.imprimirRelatorio(ordemOmpressao, 345640, grupo, subGrupo, ambiente);
+					// gerarRelatorio.imprimirRelatorio(ordemOmpressao, 345640,
+					// grupo, subGrupo, ambiente);
 					System.out.println(ordemOmpressao);
 				} catch (Exception e1) {
 					e1.printStackTrace();
@@ -181,27 +184,43 @@ public class ImpressaoCtrlVew {
 
 	public void imprimirAuto() {
 		GerarRelatorio gerarRelatorio = new GerarRelatorio();
-		String tipoI = "V";
-		String tipoB = "B";
-		String tipoV = "V";
-		List<GerarImpressaoTO> listaImpressao = GerarImpressaoPO.getinstancia().impressaoLista();
 		GerarImpressaoPO gerarImpressaoPO = new GerarImpressaoPO();
 
-		for (GerarImpressaoTO gerarImpressaoTO : listaImpressao) {
-			tipoI = gerarImpressaoTO.getTipoEvento(); 
-			switch (tipoI){
-			
-			case "A":
+		for (GerarImpressaoTO gerarImpressaoTO : gerarImpressaoPO.impressaoLista()) {
+			if (gerarImpressaoTO.getTipoEvento().equals("A")) {
+
 				System.out.println(gerarImpressaoTO.getTipoEvento());
 				selecaoimpressao();
 				try {
-					gerarRelatorio.imprimirRelatorio(ordemOmpressao, gerarImpressaoTO.getChave(), grupo, subGrupo,
-							ambiente);
-					gerarImpressaoPO.inserirPdf(gerarImpressaoTO.getChave());
+					gerarRelatorio.imprimirRelatorio(ordemOmpressao, gerarImpressaoTO.getChave(),
+							gerarImpressaoTO.getId(), grupo, subGrupo, ambiente, gerarImpressaoTO.getTipoEvento());
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
-				break;
+			}
+			if (gerarImpressaoTO.getTipoEvento().equals("I")) {
+				System.out.println(gerarImpressaoTO.getTipoEvento());
+				selecaoimpressao();
+				try {
+					System.out.println("entrou no I");
+					gerarRelatorio.imprimirRelatorio(ordemOmpressao, gerarImpressaoTO.getChave(),
+							gerarImpressaoTO.getId(), grupo, subGrupo, ambiente, gerarImpressaoTO.getTipoEvento());
+
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+
+			if (gerarImpressaoTO.getTipoEvento().equals("V")) {
+				selecaoimpressao();
+				try {
+					System.out.println("entrou no I");
+					gerarRelatorio.imprimirRelatorio(ordemOmpressao, gerarImpressaoTO.getChave(),
+							gerarImpressaoTO.getId(), grupo, subGrupo, ambiente, gerarImpressaoTO.getTipoEvento());
+
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 			}
 		}
 
@@ -245,8 +264,8 @@ public class ImpressaoCtrlVew {
 		int i = 0;
 
 		public void run() {
+			GerarImpressaoPO gerarImpressaoPO = new GerarImpressaoPO();
 			while (true) {
-				// if (boxImprimirAuto.isSelected()) {
 
 				try {
 					Thread.sleep(1000);
@@ -256,20 +275,22 @@ public class ImpressaoCtrlVew {
 				System.out.println(i);
 
 				switch (i) {
-				case 10:
+				case 2:
 					try {
-//						if (GerarImpressaoPO.getinstancia().getGerarImpressaoTO().equals("V")) {
-						imprimirAuto();
-//						} else {
-//							i = 0;
-//						}
+						int lista = gerarImpressaoPO.impressaoLista().size();
+						System.out.println(lista);
+						if (lista != 0) {
+							for (int y = 0; y < lista; y++) {
+								imprimirAuto();
+							}
+						} else {
+							i = 0;
+						}
 						i = 0;
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
 				}
-
-//				 }
 			}
 		}
 	}

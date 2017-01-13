@@ -8,7 +8,6 @@ public class GerarImpressaoTO {
 	private String tipoEvento;
 	private String impressoraPadrão;
 	private File file;
-	private String caminho;
 	private int id;
 
 	
@@ -20,13 +19,7 @@ public class GerarImpressaoTO {
 		this.id = id;
 	}
 
-	public String getCaminho() {
-		return caminho;
-	}
 
-	public void setCaminho(String caminho) {
-		this.caminho = caminho;
-	}
 
 	public File getFile() {
 		return file;
