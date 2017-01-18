@@ -1,13 +1,10 @@
 package com.intersys.sistema;
 
 import java.awt.Desktop;
-import java.awt.print.PrinterException;
-import java.awt.print.PrinterJob;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -18,28 +15,21 @@ import java.util.Map;
 import javax.print.Doc;
 import javax.print.DocFlavor;
 import javax.print.DocPrintJob;
-import javax.print.PrintException;
 import javax.print.PrintService;
 import javax.print.PrintServiceLookup;
-import javax.print.ServiceUI;
 import javax.print.SimpleDoc;
 import javax.print.attribute.HashDocAttributeSet;
 import javax.print.attribute.HashPrintRequestAttributeSet;
 import javax.print.attribute.PrintRequestAttributeSet;
-import javax.print.attribute.PrintServiceAttributeSet;
-import javax.swing.JOptionPane;
 
 import com.intersys.relatorio.fabricaconexao.FabricaDeConexao;
 
 import net.sf.jasperreports.engine.JRDataSource;
-import net.sf.jasperreports.engine.JRExporter;
-import net.sf.jasperreports.engine.JRExporterParameter;
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
-import net.sf.jasperreports.engine.export.JRPdfExporter;
 import net.sf.jasperreports.view.JasperViewer;
 
 public class GerarRelatorio {
@@ -88,9 +78,12 @@ public class GerarRelatorio {
 		Connection connection = FabricaDeConexao.getInstancia().getConnxao();
 		ProdutoFactory.setOrderBy(orderBy);
 		ClientePO.setChave(chave);
-		List<ProdutoTO> produtoTO = ProdutoFactory.listaProduto();
+		ProdutoTO produtoTO = new ProdutoTO();
+		produtoTO.setChave(chave);
+		ProdutoFactory.setProdutoTO(produtoTO);
+		List<ProdutoTO> produtoTO2 = ProdutoFactory.listaProduto();
 
-		JRDataSource jre = new JRBeanCollectionDataSource(produtoTO);
+		JRDataSource jre = new JRBeanCollectionDataSource(produtoTO2);
 
 		try {
 			EmpresaTO empresaTO = EmpresaPO.empresa();
@@ -133,10 +126,8 @@ public class GerarRelatorio {
 			}
 
 			GerarImpressaoTO gerarImpressaoTO = new GerarImpressaoTO();
-			JRExporter exporter = new JRPdfExporter();
-			exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
-			exporter.setParameter(JRExporterParameter.OUTPUT_FILE_NAME, dir + "/" + nomerelatorio + ".pdf");
-			exporter.exportReport();
+			JasperExportManager.exportReportToPdfFile(jasperPrint, dir + "/" + nomerelatorio + ".pdf");
+			
 			dir = dir.replace("\\", "/");
 			File diretorio = new File(dir + "" + this.nomerelatorio + ".pdf");
 			System.out.println(dir + "" + this.nomerelatorio + ".pdf");
@@ -144,7 +135,7 @@ public class GerarRelatorio {
 			GerarImpressaoPO gerarImpressaoPO = new GerarImpressaoPO();
 			gerarImpressaoPO.setGerarImpressaoTO(gerarImpressaoTO);
 			gerarImpressaoPO.inserirPdf(id);
-
+			
 			if (tipo.equals("I")) {
 				PrintService impressoraPadrao = PrintServiceLookup.lookupDefaultPrintService();
 				DocFlavor docFlavor = DocFlavor.INPUT_STREAM.AUTOSENSE;

@@ -20,9 +20,9 @@ public class ProdutoFactory {
 	}
 
 	private static String orderBy = "";
+	private static ProdutoTO produtoTO;
 
 	public static List<ProdutoTO> listaProduto() {
-		ProdutoTO produtoTO = new ProdutoTO();
 		List<ProdutoTO> listaSelect = new ArrayList<>();
 		String sql = "select p2ambiente,pdcodgru,pdcodram,p1obs2 as obs ,p1chave , pdund ,p2qtd,p1chave,p2item, "
 				+ "pdnome,p2codpro,(p2preco*p2qtd)as total,p1totdes,p1totalb,p1totall ,P2PRECO, pdsecao "
@@ -30,9 +30,10 @@ public class ProdutoFactory {
 
 		try (Connection connection = FabricaDeConexao.getInstancia().getConnxao()) {
 			try (PreparedStatement statement = connection.prepareStatement(sql)) {
-				statement.setLong(1, ClientePO.getChave());
+				statement.setLong(1, produtoTO.getChave());
 				try (ResultSet resultSet = statement.executeQuery()) {
 					while (resultSet.next()) {
+						ProdutoTO produtoTO = new ProdutoTO();
 						produtoTO = transferenciaResultSet(resultSet);
 						listaSelect.add(produtoTO);
 					}
@@ -45,6 +46,7 @@ public class ProdutoFactory {
 		}
 		return listaSelect;
 	}
+	
 
 	private static ProdutoTO transferenciaResultSet(ResultSet resultSet) {
 		ProdutoTO produtoTO = new ProdutoTO();
@@ -80,4 +82,13 @@ public class ProdutoFactory {
 	public static void setOrderBy(String orderBy) {
 		ProdutoFactory.orderBy = orderBy;
 	}
+
+	public static ProdutoTO getProdutoTO() {
+		return produtoTO;
+	}
+
+	public static void setProdutoTO(ProdutoTO produtoTO) {
+		ProdutoFactory.produtoTO = produtoTO;
+	}
+
 }

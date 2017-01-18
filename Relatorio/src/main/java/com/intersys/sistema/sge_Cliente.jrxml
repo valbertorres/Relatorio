@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
-<!-- 2017-01-13T16:14:03 -->
+<!-- 2017-01-16T08:13:06 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Cliente" pageWidth="555" pageHeight="802" whenNoDataType="NoDataSection" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" whenResourceMissingType="Empty" uuid="3fbdfb86-a68f-4d03-813a-da63846d3d2b">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="subreporteoracle"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
@@ -133,7 +133,7 @@ and p1chave=p1orc_chave]]>
 				<textElement textAlignment="Right">
 					<font fontName="Arial" size="11"/>
 				</textElement>
-				<text><![CDATA[Vendedor]]></text>
+				<text><![CDATA[Vendedor:]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="0" y="76" width="130" height="13" uuid="fb19b188-c652-4b01-8822-289272223ab2">

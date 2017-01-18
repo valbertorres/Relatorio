@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
+<!-- 2017-01-18T16:35:52 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="sge_relatorio_vias" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="ac497038-c61d-4317-bb16-1e006e957d10">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="sge_relatorio_produto"/>
+	<parameter name="empresa_nome" class="java.lang.String"/>
+	<parameter name="empresa_fone" class="java.lang.String"/>
+	<parameter name="cliente_nome" class="java.lang.String"/>
+	<parameter name="cliente_endereco" class="java.lang.String"/>
+	<parameter name="cliente_cidade" class="java.lang.String"/>
+	<parameter name="cliente_cnpj" class="java.lang.String"/>
+	<parameter name="cliente_vendedor" class="java.lang.String"/>
+	<parameter name="cliente_uf" class="java.lang.String"/>
+	<parameter name="cliente_ie" class="java.lang.String"/>
+	<parameter name="cliente_fone" class="java.lang.String"/>
+	<parameter name="cliente_bairro" class="java.lang.String"/>
+	<parameter name="cliente_cep" class="java.lang.String"/>
+	<parameter name="Logo" class="java.io.InputStream"/>
+	<parameter name="empresa_cnpj" class="java.lang.String"/>
+	<parameter name="empresa_ie" class="java.lang.String"/>
+	<parameter name="empresa_endereco" class="java.lang.String"/>
+	<parameter name="empresa_cidade" class="java.lang.String"/>
+	<parameter name="empresa_uf" class="java.lang.String"/>
+	<parameter name="empresa_email" class="java.lang.String"/>
+	<parameter name="collection" class="net.sf.jasperreports.engine.JRDataSource"/>
+	<parameter name="collection2" class="net.sf.jasperreports.engine.JRDataSource"/>
+	<parameter name="imprimir_via" class="java.lang.Boolean"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<group name="1via">
+		<groupFooter>
+			<band height="45">
+				<subreport>
+					<reportElement x="0" y="0" width="555" height="45" uuid="e46d47ab-6aec-4cde-828a-8189df496084">
+						<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+					</reportElement>
+					<subreportParameter name="empresa_nome">
+						<subreportParameterExpression><![CDATA[$P{empresa_nome}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="empresa_email">
+						<subreportParameterExpression><![CDATA[$P{empresa_email}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="empresa_uf">
+						<subreportParameterExpression><![CDATA[$P{empresa_uf}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="empresa_cidade">
+						<subreportParameterExpression><![CDATA[$P{empresa_cidade}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="empresa_endereco">
+						<subreportParameterExpression><![CDATA[$P{empresa_endereco}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="empresa_ie">
+						<subreportParameterExpression><![CDATA[$P{empresa_ie}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="empresa_cnpj">
+						<subreportParameterExpression><![CDATA[$P{empresa_cnpj}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="Logo">
+						<subreportParameterExpression><![CDATA[$P{Logo}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="cliente_cep">
+						<subreportParameterExpression><![CDATA[$P{cliente_cep}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="cliente_bairro">
+						<subreportParameterExpression><![CDATA[$P{cliente_bairro}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="cliente_fone">
+						<subreportParameterExpression><![CDATA[$P{cliente_fone}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="cliente_ie">
+						<subreportParameterExpression><![CDATA[$P{cliente_ie}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="cliente_uf">
+						<subreportParameterExpression><![CDATA[$P{cliente_uf}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="cliente_vendedor">
+						<subreportParameterExpression><![CDATA[$P{cliente_vendedor}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="cliente_cnpj">
+						<subreportParameterExpression><![CDATA[$P{cliente_cnpj}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="cliente_cidade">
+						<subreportParameterExpression><![CDATA[$P{cliente_cidade}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="cliente_endereco">
+						<subreportParameterExpression><![CDATA[$P{cliente_endereco}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="cliente_nome">
+						<subreportParameterExpression><![CDATA[$P{cliente_nome}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="empresa_fone">
+						<subreportParameterExpression><![CDATA[$P{empresa_fone}]]></subreportParameterExpression>
+					</subreportParameter>
+					<dataSourceExpression><![CDATA[$P{collection}]]></dataSourceExpression>
+					<subreportExpression><![CDATA["src/main/java/com/intersys/sistema/sge_relatorio2_subreport1.jasper"]]></subreportExpression>
+				</subreport>
+			</band>
+		</groupFooter>
+	</group>
+	<group name="2via">
+		<groupFooter>
+			<band height="45">
+				<printWhenExpression><![CDATA[$P{imprimir_via}==true?true:false]]></printWhenExpression>
+				<subreport>
+					<reportElement x="0" y="0" width="555" height="45" uuid="c427ceb7-2194-46c7-beac-fd547c620aa6">
+						<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+					</reportElement>
+					<subreportParameter name="empresa_nome">
+						<subreportParameterExpression><![CDATA[$P{empresa_nome}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="empresa_email">
+						<subreportParameterExpression><![CDATA[$P{empresa_email}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="empresa_uf">
+						<subreportParameterExpression><![CDATA[$P{empresa_uf}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="empresa_cidade">
+						<subreportParameterExpression><![CDATA[$P{empresa_cidade}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="empresa_endereco">
+						<subreportParameterExpression><![CDATA[$P{empresa_endereco}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="empresa_ie">
+						<subreportParameterExpression><![CDATA[$P{empresa_ie}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="empresa_cnpj">
+						<subreportParameterExpression><![CDATA[$P{empresa_cnpj}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="Logo">
+						<subreportParameterExpression><![CDATA[$P{Logo}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="cliente_cep">
+						<subreportParameterExpression><![CDATA[$P{cliente_cep}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="cliente_bairro">
+						<subreportParameterExpression><![CDATA[$P{cliente_bairro}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="cliente_fone">
+						<subreportParameterExpression><![CDATA[$P{cliente_fone}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="cliente_ie">
+						<subreportParameterExpression><![CDATA[$P{cliente_ie}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="cliente_uf">
+						<subreportParameterExpression><![CDATA[$P{cliente_uf}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="cliente_vendedor">
+						<subreportParameterExpression><![CDATA[$P{cliente_vendedor}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="cliente_cnpj">
+						<subreportParameterExpression><![CDATA[$P{cliente_cnpj}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="cliente_cidade">
+						<subreportParameterExpression><![CDATA[$P{cliente_cidade}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="cliente_endereco">
+						<subreportParameterExpression><![CDATA[$P{cliente_endereco}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="cliente_nome">
+						<subreportParameterExpression><![CDATA[$P{cliente_nome}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="empresa_fone">
+						<subreportParameterExpression><![CDATA[$P{empresa_fone}]]></subreportParameterExpression>
+					</subreportParameter>
+					<dataSourceExpression><![CDATA[$P{collection2}]]></dataSourceExpression>
+					<subreportExpression><![CDATA["src/main/java/com/intersys/sistema/sge_relatorio2_subreport1.jasper"]]></subreportExpression>
+				</subreport>
+			</band>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+</jasperReport>

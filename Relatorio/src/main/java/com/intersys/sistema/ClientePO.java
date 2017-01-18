@@ -24,8 +24,7 @@ public class ClientePO {
 
 	private static long chave;
 
-	public static List<ClienteTO> Cliente() {
-		List<ClienteTO> listacliente = new ArrayList<>();
+	public static ClienteTO Cliente() {
 		ClienteTO clienteTO = new ClienteTO();
 		String sql = "select  CASE WHEN p1fretepc=0 THEN 'Por conta do emitente.' "
 				+ "when p1fretepc=1 THEN 'Por conta do destinatário.' "
@@ -42,7 +41,6 @@ public class ClientePO {
 				try (ResultSet resultSet = statement.executeQuery()) {
 					while (resultSet.next()) {
 						clienteTO = transferenciadeResultSet(resultSet);
-						listacliente.add(clienteTO);
 					}
 				}
 			}
@@ -51,7 +49,7 @@ public class ClientePO {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return listacliente;
+		return clienteTO;
 	}
 
 	private static ClienteTO transferenciadeResultSet(ResultSet resultSet) throws Exception {
@@ -86,13 +84,4 @@ public class ClientePO {
 		ClientePO.chave = chave;
 	}
 
-	public static void main(String[] args) {
-		ClienteTO clienteTO = new ClienteTO();
-		chave = 345640;
-
-		for (ClienteTO clienteTO2 : Cliente()) {
-			System.out.println(clienteTO2.getCnpj());
-		}
-
-	}
 }

@@ -1,5 +1,7 @@
 package com.intersys.sistema;
 
+import java.util.List;
+
 public class ProdutoTO {
 
 	private long chave;
