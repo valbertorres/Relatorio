@@ -22,8 +22,6 @@ import net.sf.jasperreports.view.JasperViewer;
 public class GerarRelatorio2 {
 	public static void main(String[] args) throws FileNotFoundException {
 
-		ClientePO.setChave(345640);
-
 		ProdutoTO produtoTO = new ProdutoTO();
 		produtoTO.setChave(345640);
 		ProdutoFactory.setProdutoTO(produtoTO);
@@ -32,7 +30,11 @@ public class GerarRelatorio2 {
 		JRDataSource produto2 = new JRBeanCollectionDataSource(listaprodutos);
 		JRDataSource produto3 = new JRBeanCollectionDataSource(listaprodutos);
 
-		ClienteTO clienteTO = ClientePO.Cliente();
+		ClienteTO clienteTO = new ClienteTO();
+		clienteTO.setChave(345640);
+		ClientePO clientePO = new ClientePO();
+		clientePO.setClienteTO(clienteTO);
+		clienteTO = clientePO.Cliente();
 		EmpresaTO empresaTO = EmpresaPO.empresa();
 
 		Map<String, Object> parametro = new HashMap<>();
@@ -61,7 +63,6 @@ public class GerarRelatorio2 {
 		parametro.put("cliente_cep", clienteTO.getCep());
 		parametro.put("collection", produto2);
 		parametro.put("collection2", produto3);
-		
 
 		parametro.put("Logo", new FileInputStream("C:/sge/LOGO0.JPG"));
 

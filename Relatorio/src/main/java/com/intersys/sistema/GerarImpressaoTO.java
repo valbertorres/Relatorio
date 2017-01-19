@@ -9,8 +9,27 @@ public class GerarImpressaoTO {
 	private String impressoraPadrão;
 	private File file;
 	private int id;
+	private int agrupamento;
+	private int ordemImpressao;
+	
 
 	
+	public int getAgrupamento() {
+		return agrupamento;
+	}
+
+	public void setAgrupamento(int agrupamento) {
+		this.agrupamento = agrupamento;
+	}
+
+	public int getOrdemImpressao() {
+		return ordemImpressao;
+	}
+
+	public void setOrdemImpressao(int ordemImpressao) {
+		this.ordemImpressao = ordemImpressao;
+	}
+
 	public int getId() {
 		return id;
 	}

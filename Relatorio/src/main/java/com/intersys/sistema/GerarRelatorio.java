@@ -41,6 +41,30 @@ public class GerarRelatorio {
 	private String dir;
 	private String nomerelatorio;
 
+	private void cliente(long chave) {
+		ClienteTO clienteTO = new ClienteTO();
+		clienteTO.setChave(chave);
+		ClientePO clientePO = new ClientePO();
+		clientePO.setClienteTO(clienteTO);
+		clienteTO = clientePO.Cliente();
+		this.parameters.put("cliente_nome", clienteTO.getNomeCliente());
+		this.parameters.put("cliente_fantasia", clienteTO.getNomeFantasia());
+		this.parameters.put("cliente_endereco", clienteTO.getEndereco());
+		this.parameters.put("cliente_cidade", clienteTO.getCiadade());
+		this.parameters.put("cliente_cnpj", clienteTO.getCnpj());
+		this.parameters.put("cliente_vendedor", clienteTO.getVendedor());
+		this.parameters.put("cliente_prazoEntrega", clienteTO.getPrazo());
+		this.parameters.put("cliente_frete", clienteTO.getFrete());
+		this.parameters.put("cliente_pontoRef", clienteTO.getPontoDeReferencia());
+		this.parameters.put("cliente_bairro", clienteTO.getBairro());
+		this.parameters.put("cliente_uf", clienteTO.getUf());
+		this.parameters.put("cliente_fone", clienteTO.getContato());
+		this.parameters.put("cliente_ie", clienteTO.getRg());
+		this.parameters.put("cliente_data", clienteTO.getData());
+		this.parameters.put("cliente_validade", clienteTO.getValidade());
+		this.parameters.put("cliente_cep", clienteTO.getCep());
+	}
+
 	public static String VerificarCNPJ(String cnpj) throws SQLException, Exception {
 		StringBuffer cnpjBuffer = new StringBuffer();
 		int countCnpj = cnpj.length();
@@ -77,13 +101,13 @@ public class GerarRelatorio {
 			boolean ambiente, String tipo) throws Exception {
 		Connection connection = FabricaDeConexao.getInstancia().getConnxao();
 		ProdutoFactory.setOrderBy(orderBy);
-		ClientePO.setChave(chave);
 		ProdutoTO produtoTO = new ProdutoTO();
 		produtoTO.setChave(chave);
 		ProdutoFactory.setProdutoTO(produtoTO);
 		List<ProdutoTO> produtoTO2 = ProdutoFactory.listaProduto();
 
 		JRDataSource jre = new JRBeanCollectionDataSource(produtoTO2);
+		cliente(chave);
 
 		try {
 			EmpresaTO empresaTO = EmpresaPO.empresa();
@@ -98,12 +122,18 @@ public class GerarRelatorio {
 			this.parameters.put("empresa_cidade", empresaTO.getCidade());
 			this.parameters.put("empresa_uf", empresaTO.getUf());
 			this.parameters.put("empresa_email", empresaTO.getEmail());
-			this.parameters.put("p1chave", ClientePO.getChave());
 			this.parameters.put("exibir_subgrupo", subgrupo);
 			this.parameters.put("exibir_grupo", grupo);
 			this.parameters.put("exibir_ambiente", ambiente);
 			this.parameters.put("con", connection);
 			this.parameters.put("Logo", new FileInputStream("C:/sge/LOGO0.JPG"));
+
+			this.parameters.put("dir_chave",
+					"C:/Users/PROGRAMADOR-02/Desktop/relatorio/teste-master/Relatorio/src/main/java/com/intersys/sistema/sge_relatorio_chavetipo.jasper");
+			this.parameters.put("dir_av",
+					"C:/Users/PROGRAMADOR-02/Desktop/relatorio/teste-master/Relatorio/src/main/java/com/intersys/sistema/sge_relatorio_av.jasper");
+			this.parameters.put("dir_parcelas",
+					"C:/Users/PROGRAMADOR-02/Desktop/relatorio/teste-master/Relatorio/src/main/java/com/intersys/sistema/sge_relatorio_vencimento.jasper");
 
 			InputStream relatorioSource = GerarRelatorio.class.getResourceAsStream("relatorio_pedido.jrxml");
 			ByteArrayOutputStream relatorioOutputCompiled = new ByteArrayOutputStream();
@@ -127,7 +157,7 @@ public class GerarRelatorio {
 
 			GerarImpressaoTO gerarImpressaoTO = new GerarImpressaoTO();
 			JasperExportManager.exportReportToPdfFile(jasperPrint, dir + "/" + nomerelatorio + ".pdf");
-			
+
 			dir = dir.replace("\\", "/");
 			File diretorio = new File(dir + "" + this.nomerelatorio + ".pdf");
 			System.out.println(dir + "" + this.nomerelatorio + ".pdf");
@@ -135,7 +165,7 @@ public class GerarRelatorio {
 			GerarImpressaoPO gerarImpressaoPO = new GerarImpressaoPO();
 			gerarImpressaoPO.setGerarImpressaoTO(gerarImpressaoTO);
 			gerarImpressaoPO.inserirPdf(id);
-			
+
 			if (tipo.equals("I")) {
 				PrintService impressoraPadrao = PrintServiceLookup.lookupDefaultPrintService();
 				DocFlavor docFlavor = DocFlavor.INPUT_STREAM.AUTOSENSE;
@@ -159,13 +189,13 @@ public class GerarRelatorio {
 
 			// JasperExportManager.exportReportToPdfFile(jasperPrint,
 			// dir+"/"+"relatorio.pdf");
-			if (file.isDirectory()) {
-				File[] countFile = file.listFiles();
-				for (File toDelete : countFile) {
-					toDelete.delete();
-				}
-			}
-			file.delete();
+			 if (file.isDirectory()) {
+			 File[] countFile = file.listFiles();
+			 for (File toDelete : countFile) {
+			 toDelete.delete();
+			 }
+			 }
+			 file.delete();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

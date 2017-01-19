@@ -27,7 +27,8 @@ public class GerarImpressaoPO {
 	public List<GerarImpressaoTO> impressaoLista() {
 		GerarImpressaoTO gerarImpressaoTO = new GerarImpressaoTO();
 		List<GerarImpressaoTO> listaImpressao = new ArrayList<>();
-		String sql = "select p1r_tipo_evento,p1r_id,p1r_chave from cadp01_requisicoes where p1r_dathor_proc is  null";
+		String sql = "select p1r_tipo_evento,p1r_id,p1r_chave ,p1r_ordem_impressao,p1r_agrupamento "
+				+ "from cadp01_requisicoes where p1r_dathor_proc is  null";
 
 		try (Connection connection = FabricaDeConexao.getInstancia().getConnxao()) {
 			try (PreparedStatement statement = connection.prepareStatement(sql)) {
@@ -95,6 +96,8 @@ public class GerarImpressaoPO {
 		gerarImpressaoTO.setChave(resultSet.getLong("p1r_chave"));
 		gerarImpressaoTO.setId(resultSet.getInt("p1r_id"));
 		gerarImpressaoTO.setTipoEvento(resultSet.getString("p1r_tipo_evento"));
+		gerarImpressaoTO.setAgrupamento(resultSet.getInt("p1r_agrupamento"));
+		gerarImpressaoTO.setOrdemImpressao(resultSet.getInt("p1r_ordem_impressao"));
 		// gerarImpressaoTO.setImpressoraPadrão(resultSet.getString("p1r_impressora_padrao"));
 
 		return gerarImpressaoTO;

@@ -27,7 +27,7 @@ public class VencimentoPO {
 
 		try (Connection connection = FabricaDeConexao.getInstancia().getConnxao()) {
 			try (PreparedStatement statement = connection.prepareStatement(sql)) {
-				statement.setLong(1, ClientePO.getChave());
+//				statement.setLong(1, ClientePO.getChave());
 				try (ResultSet resultSet = statement.executeQuery()) {
 					while (resultSet.next()) {
 						venciementoTO = transferenciaResultSet(resultSet);
