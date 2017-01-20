@@ -29,6 +29,7 @@ public class ChavePO {
 		try (Connection connection = FabricaDeConexao.getInstancia().getConnxao()) {
 			try (PreparedStatement statement = connection.prepareStatement(sql)) {
 				try (ResultSet resultSet = statement.executeQuery()) {
+					
 					while (resultSet.next()) {
 						chaveTO = transferenciaResultSet(resultSet);
 						listaChaveTipo.add(chaveTO);

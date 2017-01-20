@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
-<!-- 2017-01-18T16:35:52 -->
+<!-- 2017-01-20T10:12:23 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="sge_relatorio_vias" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="ac497038-c61d-4317-bb16-1e006e957d10">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="sge_relatorio_produto"/>
 	<parameter name="empresa_nome" class="java.lang.String"/>
@@ -25,6 +25,10 @@
 	<parameter name="collection" class="net.sf.jasperreports.engine.JRDataSource"/>
 	<parameter name="collection2" class="net.sf.jasperreports.engine.JRDataSource"/>
 	<parameter name="imprimir_via" class="java.lang.Boolean"/>
+	<parameter name="dir_1" class="java.lang.String">
+		<parameterDescription><![CDATA[]]></parameterDescription>
+	</parameter>
+	<parameter name="dir_2" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[]]>
 	</queryString>
@@ -93,7 +97,7 @@
 						<subreportParameterExpression><![CDATA[$P{empresa_fone}]]></subreportParameterExpression>
 					</subreportParameter>
 					<dataSourceExpression><![CDATA[$P{collection}]]></dataSourceExpression>
-					<subreportExpression><![CDATA["src/main/java/com/intersys/sistema/sge_relatorio2_subreport1.jasper"]]></subreportExpression>
+					<subreportExpression><![CDATA[$P{dir_2}]]></subreportExpression>
 				</subreport>
 			</band>
 		</groupFooter>
@@ -164,7 +168,7 @@
 						<subreportParameterExpression><![CDATA[$P{empresa_fone}]]></subreportParameterExpression>
 					</subreportParameter>
 					<dataSourceExpression><![CDATA[$P{collection2}]]></dataSourceExpression>
-					<subreportExpression><![CDATA["src/main/java/com/intersys/sistema/sge_relatorio2_subreport1.jasper"]]></subreportExpression>
+					<subreportExpression><![CDATA[$P{dir_1}]]></subreportExpression>
 				</subreport>
 			</band>
 		</groupFooter>

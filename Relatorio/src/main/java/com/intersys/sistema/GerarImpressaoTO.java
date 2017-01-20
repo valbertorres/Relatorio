@@ -11,9 +11,9 @@ public class GerarImpressaoTO {
 	private int id;
 	private int agrupamento;
 	private int ordemImpressao;
-	
+	private int qtdVias;
+	private int modeloRelatorio;
 
-	
 	public int getAgrupamento() {
 		return agrupamento;
 	}
@@ -37,8 +37,6 @@ public class GerarImpressaoTO {
 	public void setId(int id) {
 		this.id = id;
 	}
-
-
 
 	public File getFile() {
 		return file;
@@ -70,6 +68,22 @@ public class GerarImpressaoTO {
 
 	public void setImpressoraPadrão(String impressoraPadrão) {
 		this.impressoraPadrão = impressoraPadrão;
+	}
+
+	public int getQtdVias() {
+		return qtdVias;
+	}
+
+	public void setQtdVias(int qtdVias) {
+		this.qtdVias = qtdVias;
+	}
+
+	public int getModeloRelatorio() {
+		return modeloRelatorio;
+	}
+
+	public void setModeloRelatorio(int modeloRelatorio) {
+		this.modeloRelatorio = modeloRelatorio;
 	}
 
 }
