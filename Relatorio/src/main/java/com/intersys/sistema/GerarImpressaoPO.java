@@ -27,7 +27,7 @@ public class GerarImpressaoPO {
 	public List<GerarImpressaoTO> impressaoLista() {
 		GerarImpressaoTO gerarImpressaoTO = new GerarImpressaoTO();
 		List<GerarImpressaoTO> listaImpressao = new ArrayList<>();
-		String sql = "select p1r_tipo_evento,p1r_id,p1r_chave ,p1r_ordem_impressao,p1r_agrupamento, p1r_qtdvias,p1r_qtdvias "
+		String sql = "select p1r_tipo_evento,p1r_id,p1r_chave ,p1r_ordem_impressao,p1r_agrupamento, p1r_qtdvias,p1r_modelo_relatorio "
 				+ "from cadp01_requisicoes where p1r_dathor_proc is  null";
 
 		try (Connection connection = FabricaDeConexao.getInstancia().getConnxao()) {

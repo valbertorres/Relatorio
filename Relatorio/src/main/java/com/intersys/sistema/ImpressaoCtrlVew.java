@@ -2,6 +2,8 @@ package com.intersys.sistema;
 
 import javax.swing.JOptionPane;
 
+import org.springframework.util.SystemPropertyUtils;
+
 public class ImpressaoCtrlVew {
 
 	private Tempo imprimirAuto = new Tempo();
@@ -90,34 +92,62 @@ public class ImpressaoCtrlVew {
 	}
 
 	public void imprimirAuto() {
+		GerarImpressaoPO gerarImpressaoPO = new GerarImpressaoPO();
 		GerarRelatorio gerarRelatorio = new GerarRelatorio();
 		GerarRelatorio2 gerarRelatorio2 = new GerarRelatorio2();
-		GerarImpressaoPO gerarImpressaoPO = new GerarImpressaoPO();
 
 		for (GerarImpressaoTO gerarImpressaoTO : gerarImpressaoPO.impressaoLista()) {
+			selecaoimpressao(gerarImpressaoTO.getOrdemImpressao());
+			agrupamento(gerarImpressaoTO.getAgrupamento());
 			gerarRelatorio.setChave(gerarImpressaoTO.getChave());
+			System.out.println(gerarImpressaoTO.getChave());
 			gerarRelatorio.setAmbiente(ambiente);
 			gerarRelatorio.setGrupo(grupo);
 			gerarRelatorio.setOrderBy(ordemOmpressao);
 			gerarRelatorio.setSubgrupo(subGrupo);
 			gerarRelatorio.setSem(sem);
 			gerarRelatorio.setId(gerarImpressaoTO.getId());
+			System.out.println(gerarImpressaoTO.getId());
 			gerarRelatorio.setEvento(gerarImpressaoTO.getTipoEvento());
-			selecaoimpressao(gerarImpressaoTO.getOrdemImpressao());
-			agrupamento(gerarImpressaoTO.getAgrupamento());
 			gerarRelatorio2.setGerarRelatorio(gerarRelatorio);
 
 			try {
-				switch (gerarImpressaoTO.getModeloRelatorio()) {
-				case 0:
-					gerarRelatorio.gerarRelatorio();
-					break;
-				case 1:
-					gerarRelatorio2.gerarRelatorio2();
+				if (gerarImpressaoTO.getQtdVias() < 1) {
+					if (gerarImpressaoTO.getModeloRelatorio() == 0) {
+						gerarRelatorio.gerarRelatorio();
+					}
+					if (gerarImpressaoTO.getModeloRelatorio() == 1) {
+						gerarRelatorio2.setImprimir_via(false);
+						gerarRelatorio2.gerarRelatorio2();
+					}
 				}
 
+				if (gerarImpressaoTO.getQtdVias() == 2) {
+					if (gerarImpressaoTO.getModeloRelatorio() == 0) {
+						gerarRelatorio.gerarRelatorio();
+					}
+					if (gerarImpressaoTO.getModeloRelatorio() == 1) {
+						gerarRelatorio2.setImprimir_via(true);
+						gerarRelatorio2.gerarRelatorio2();
+					}
+				}
+
+				if (gerarImpressaoTO.getQtdVias() > 2) {
+					for (int i = 0; i < gerarImpressaoTO.getQtdVias(); i++) {
+						if (gerarImpressaoTO.getModeloRelatorio() == 0) {
+							gerarRelatorio.setContador(i);
+							gerarRelatorio.gerarRelatorio();
+						}
+						if (gerarImpressaoTO.getModeloRelatorio() == 1) {
+							gerarRelatorio.setContador(i);
+							gerarRelatorio2.setImprimir_via(true);
+							gerarRelatorio2.gerarRelatorio2();
+						}
+					}
+				}
+				gerarRelatorio.salvarPdf();
 			} catch (Exception e) {
-				JOptionPane.showMessageDialog(null, "Impressão automatica Falhou!");
+				e.printStackTrace();
 			}
 		}
 	}
@@ -126,7 +156,6 @@ public class ImpressaoCtrlVew {
 
 	public class Tempo extends Thread {
 		int i = 0;
-		int y = 0;
 
 		public void run() {
 			GerarImpressaoPO gerarImpressaoPO = new GerarImpressaoPO();
@@ -135,7 +164,6 @@ public class ImpressaoCtrlVew {
 				try {
 					Thread.sleep(1000);
 					i++;
-					y++;
 				} catch (Exception e) {
 				}
 				System.out.println(i);
@@ -153,11 +181,7 @@ public class ImpressaoCtrlVew {
 
 							i = 0;
 						}
-						// switch (y) {
-						// case 20:
-						// System.out.println("parando thread time " + y);
-						// imprimirAuto.stop();
-						// }
+
 						i = 0;
 					} catch (Exception e) {
 						e.printStackTrace();

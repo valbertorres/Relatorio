@@ -16,7 +16,6 @@ import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
-import net.sf.jasperreports.view.JasperViewer;
 
 public class GerarRelatorio2 {
 	private Map<String, Object> parametro = new HashMap<>();
@@ -24,6 +23,7 @@ public class GerarRelatorio2 {
 	private String dir_1;
 	private JasperPrint jasperPrint;
 	private String dir_logo;
+	private boolean imprimir_via;
 
 	private void empresa() {
 		EmpresaTO empresaTO = EmpresaPO.empresa();
@@ -48,12 +48,12 @@ public class GerarRelatorio2 {
 
 		this.parametro.put("collection", produto2);
 		this.parametro.put("collection2", produto3);
-		this.parametro.put("imprimir_via", true);
+		this.parametro.put("imprimir_via", this.imprimir_via);
 	}
 
 	private JRDataSource jrdataSource() {
 		ProdutoTO produtoTO = new ProdutoTO();
-		produtoTO.setChave(gerarRelatorio.getChave());
+		produtoTO.setChave(this.gerarRelatorio.getChave());
 		ProdutoFactory.setProdutoTO(produtoTO);
 		List<ProdutoTO> listaprodutos = ProdutoFactory.listaProduto();
 		JRDataSource produto = new JRBeanCollectionDataSource(listaprodutos);
@@ -64,7 +64,7 @@ public class GerarRelatorio2 {
 	private void cliente() {
 
 		ClienteTO clienteTO = new ClienteTO();
-		clienteTO.setChave(gerarRelatorio.getChave());
+		clienteTO.setChave(this.gerarRelatorio.getChave());
 		ClientePO clientePO = new ClientePO();
 		clientePO.setClienteTO(clienteTO);
 		clienteTO = clientePO.Cliente();
@@ -86,7 +86,7 @@ public class GerarRelatorio2 {
 		try {
 			this.parametro.put("Logo", new FileInputStream(dir_logo));
 		} catch (FileNotFoundException e) {
-			System.out.println("Caminho da logo não encontrado");
+			e.printStackTrace();
 		}
 	}
 
@@ -94,9 +94,6 @@ public class GerarRelatorio2 {
 		this.dir_1 = "C:/Users/PROGRAMADOR-02/Desktop/relatorio/teste-master/Relatorio/src/main/java/com/intersys/sistema/sge_relatorio2_subreport1.jasper";
 		this.parametro.put("dir_1", this.dir_1);
 		this.parametro.put("dir_2", this.dir_1);
-		if (dir_1.equals(null)) {
-			System.out.println("Caminho do subreport não encontrado");
-		}
 
 	}
 
@@ -114,6 +111,10 @@ public class GerarRelatorio2 {
 		gerarRelatorio.imprimirRelatorioPdf();
 	}
 
+	private void openPdf() {
+		this.gerarRelatorio.openPdf();
+	}
+
 	public void gerarRelatorio2() {
 		this.produto();
 		this.cliente();
@@ -122,30 +123,19 @@ public class GerarRelatorio2 {
 		this.subreport();
 
 		try {
-			System.out.println("compilando....");
 			InputStream inputStream = GerarRelatorio2.class.getResourceAsStream("sge_relatorio_vias.jrxml");
-			System.out.println("input....");
 			ByteArrayOutputStream compileRelatorio = new ByteArrayOutputStream();
-			System.out.println("compileRelatorio....");
 			JasperCompileManager.compileReportToStream(inputStream, compileRelatorio);
-			System.out.println("jaseprComplie....");
 			byte[] relatorioCompileReporte = compileRelatorio.toByteArray();
-			System.out.println("relatorio byte....");
 			compileRelatorio.close();
-			System.out.println("Close....");
 			jasperPrint = JasperFillManager.fillReport(new ByteArrayInputStream(relatorioCompileReporte), parametro,
 					jrdataSource());
-			System.out.println("print....");
 			this.montarDir();
 			this.salvarPdf();
 			this.imprimirPdf();
-
-			JasperViewer jasperViewer = new JasperViewer(jasperPrint, false);
-			System.out.println("view....");
-			jasperViewer.setExtendedState(jasperViewer.MAXIMIZED_BOTH);
-			System.out.println("maximized....");
-			jasperViewer.setVisible(true);
-			System.out.println("gerando....");
+			// JasperViewer jasperViewer = new JasperViewer(jasperPrint, false);
+			// jasperViewer.setExtendedState(jasperViewer.MAXIMIZED_BOTH);
+			// jasperViewer.setVisible(true);
 
 		} catch (JRException e) {
 			e.printStackTrace();
@@ -161,6 +151,14 @@ public class GerarRelatorio2 {
 
 	public void setGerarRelatorio(GerarRelatorio gerarRelatorio) {
 		this.gerarRelatorio = gerarRelatorio;
+	}
+
+	public boolean isImprimir_via() {
+		return imprimir_via;
+	}
+
+	public void setImprimir_via(boolean imprimir_via) {
+		this.imprimir_via = imprimir_via;
 	}
 
 }

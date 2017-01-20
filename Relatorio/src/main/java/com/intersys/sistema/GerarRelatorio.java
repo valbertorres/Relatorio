@@ -6,6 +6,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Connection;
 import java.util.HashMap;
@@ -32,7 +33,6 @@ import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
-import net.sf.jasperreports.view.JasperViewer;
 
 public class GerarRelatorio {
 	public GerarRelatorio() {
@@ -42,14 +42,12 @@ public class GerarRelatorio {
 	private Map<String, Object> parameters = new HashMap();
 	private String dir;
 	private String nomerelatorio;
-	private ProdutoTO produtoTO = new ProdutoTO();
 	private String orderBy;
 	private long chave;
 	private int id;
 	private boolean grupo;
 	private boolean subgrupo;
 	private boolean ambiente;
-	private String tipo;
 	private String dir_logo = "C:/sge/LOGO0.JPG";
 	private String dir_chave;
 	private String dir_av;
@@ -59,6 +57,8 @@ public class GerarRelatorio {
 	private File file;
 	private File diretorio;
 	private JasperPrint jasperPrint;
+	private ProdutoTO produtoTO = new ProdutoTO();
+	private int contador;
 
 	private void cliente(long chave) {
 		ClienteTO clienteTO = new ClienteTO();
@@ -128,8 +128,8 @@ public class GerarRelatorio {
 	}
 
 	private JRDataSource jrdataSource() {
-
-		this.produtoTO.setChave(this.chave);
+		ProdutoTO produtoTO = new ProdutoTO();
+		produtoTO.setChave(this.chave);
 		ProdutoFactory.setProdutoTO(this.produtoTO);
 		List<ProdutoTO> produtoTO2 = ProdutoFactory.listaProduto();
 		JRDataSource jre = new JRBeanCollectionDataSource(produtoTO2);
@@ -149,13 +149,13 @@ public class GerarRelatorio {
 	}
 
 	public void montarDir() {
-		this.nomerelatorio = String.valueOf(this.chave) + "_id_" + id;
-		this.dir = "c:\\uploadPDF" + "\\";
-		this.file = new File(dir);
-		if (!file.exists()) {
-			this.file.mkdir();
-		}
 		try {
+			this.nomerelatorio = String.valueOf(this.chave) + "_id_" + id + "_" + contador;
+			this.dir = "c:\\uploadPDF" + "\\";
+			this.file = new File(dir);
+			if (!file.exists()) {
+				this.file.mkdir();
+			}
 			JasperExportManager.exportReportToPdfFile(this.jasperPrint, this.dir + "/" + this.nomerelatorio + ".pdf");
 		} catch (JRException e) {
 			e.printStackTrace();
@@ -175,7 +175,7 @@ public class GerarRelatorio {
 	}
 
 	public void imprimirRelatorioPdf() {
-		if (tipo.equals("I")) {
+		if (evento.equals("I")) {
 			System.out.println("entrou no i");
 			PrintService impressoraPadrao = PrintServiceLookup.lookupDefaultPrintService();
 			DocFlavor docFlavor = DocFlavor.INPUT_STREAM.AUTOSENSE;
@@ -187,7 +187,7 @@ public class GerarRelatorio {
 				DocPrintJob job = impressoraPadrao.createPrintJob();
 				job.print(doc, printRequestAttributeSet);
 			} catch (Exception e) {
-				JOptionPane.showMessageDialog(null, "Não há impressora encontrada!");
+				e.printStackTrace();
 			}
 		}
 
@@ -201,6 +201,18 @@ public class GerarRelatorio {
 			}
 		}
 		file.delete();
+	}
+
+	public void openPdf() {
+		if (this.evento.equals("V")) {
+			JOptionPane.showMessageDialog(null, "imprimir na tela ");
+			File pdf = new File(dir + "" + this.nomerelatorio + ".pdf");
+			try {
+				Desktop.getDesktop().open(pdf);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 
 	public void gerarRelatorio() throws Exception {
@@ -223,20 +235,15 @@ public class GerarRelatorio {
 
 			jasperPrint = JasperFillManager.fillReport(new ByteArrayInputStream(compiledReportData), this.parameters,
 					jrdataSource());
-			JasperViewer jasperViewer = new JasperViewer(jasperPrint, false);
-			jasperViewer.setExtendedState(JasperViewer.MAXIMIZED_BOTH);
+			// JasperViewer jasperViewer = new JasperViewer(jasperPrint, false);
+			// jasperViewer.setExtendedState(JasperViewer.MAXIMIZED_BOTH);
 			this.montarDir();
 
 			this.salvarPdf();
 			this.imprimirRelatorioPdf();
 
-			if (tipo.equals("V")) {
-				JOptionPane.showMessageDialog(null, "imprimir na tela ");
-				File pdf = new File(dir + "" + this.nomerelatorio + ".pdf");
-				// Desktop.getDesktop().open(pdf);
-				System.out.println("open");
-			}
-			this.limparFolder();
+			this.openPdf();
+			// this.limparFolder();
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -324,14 +331,6 @@ public class GerarRelatorio {
 		this.ambiente = ambiente;
 	}
 
-	public String getTipo() {
-		return tipo;
-	}
-
-	public void setTipo(String tipo) {
-		this.tipo = tipo;
-	}
-
 	public boolean isSem() {
 		return sem;
 	}
@@ -360,23 +359,12 @@ public class GerarRelatorio {
 		return dir_logo;
 	}
 
-	public static void main(String[] args) {
-		int i = 0;
-		GerarRelatorio gerarRelatorio = new GerarRelatorio();
-		gerarRelatorio.setChave(345640);
-		gerarRelatorio.setOrderBy("");
-		gerarRelatorio.setId(10);
-		gerarRelatorio.setTipo("A");
-		try {
+	public int getContador() {
+		return contador;
+	}
 
-			GerarRelatorio2 gerarRelatorio2 = new GerarRelatorio2();
-			gerarRelatorio2.setGerarRelatorio(gerarRelatorio);
-			gerarRelatorio2.gerarRelatorio2();
-
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	public void setContador(int contador) {
+		this.contador = contador;
 	}
 
 }

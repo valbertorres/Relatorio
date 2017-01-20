@@ -7,6 +7,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.util.SystemPropertyUtils;
+
 import com.intersys.relatorio.fabricaconexao.FabricaDeConexao;
 
 public class ProdutoFactory {
@@ -24,9 +26,10 @@ public class ProdutoFactory {
 
 	public static List<ProdutoTO> listaProduto() {
 		List<ProdutoTO> listaSelect = new ArrayList<>();
-		String sql = "select p2ambiente,pdcodgru,pdcodram,p1obs2 as obs ,p1chave , pdund ,p2qtd,p1chave,p2item, "
-				+ "pdnome,p2codpro,(p2preco*p2qtd)as total,p1totdes,p1totalb,p1totall ,P2PRECO, pdsecao "
-				+ "from cadp01,cadp02,cadpro where p1chave= ? and p1chave=p2chave and p2codpro=pdcodpro " + orderBy;
+		String sql = "select p2ambiente,pdcodgru,pdcodram,p1obs2 as obs ,p1chave , "
+				+ "pdund ,p2qtd,p1chave,p2item,pdnome,p2codpro,"
+				+ "(p2preco*p2qtd)as total,p1totdes,p1totalb,p1totall ," + "P2PRECO, pdsecao " + " from cadp01,cadp02,"
+				+ "cadpro where p1chave=? and p1chave=p2chave " + "and p2codpro=pdcodpro " + orderBy;
 
 		try (Connection connection = FabricaDeConexao.getInstancia().getConnxao()) {
 			try (PreparedStatement statement = connection.prepareStatement(sql)) {
@@ -46,7 +49,6 @@ public class ProdutoFactory {
 		}
 		return listaSelect;
 	}
-	
 
 	private static ProdutoTO transferenciaResultSet(ResultSet resultSet) {
 		ProdutoTO produtoTO = new ProdutoTO();
@@ -89,6 +91,19 @@ public class ProdutoFactory {
 
 	public static void setProdutoTO(ProdutoTO produtoTO) {
 		ProdutoFactory.produtoTO = produtoTO;
+	}
+
+	public static void main(String[] args) {
+
+		ProdutoTO produtoTO = new ProdutoTO();
+		produtoTO.setChave(345642);
+		ProdutoFactory.setProdutoTO(produtoTO);
+		for(ProdutoTO to : ProdutoFactory.listaProduto()){
+			System.out.println(to.getNomeProduto());
+		}
+		for (ProdutoTO produtoTO2 : ProdutoFactory.listaProduto()) {
+			System.out.println(produtoTO2.getNomeProduto());
+		}
 	}
 
 }
