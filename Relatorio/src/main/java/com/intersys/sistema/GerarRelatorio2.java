@@ -9,6 +9,9 @@ import java.io.InputStream;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
+
+import com.intersys.relatorio.fabricaconexao.FabricaDeConexao;
 
 import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.JRException;
@@ -24,6 +27,9 @@ public class GerarRelatorio2 {
 	private JasperPrint jasperPrint;
 	private String dir_logo;
 	private boolean imprimir_via;
+	private boolean grupo;
+	private boolean subgrupo;
+	private boolean ambiente;
 
 	private void empresa() {
 		EmpresaTO empresaTO = EmpresaPO.empresa();
@@ -61,6 +67,12 @@ public class GerarRelatorio2 {
 		return produto;
 	}
 
+	private void agrupamentos() {
+		this.parametro.put("exibir_grupo", grupo);
+		this.parametro.put("exibir_subgrupo", subgrupo);
+		this.parametro.put("exibir_ambiente", ambiente);
+	}
+
 	private void cliente() {
 
 		ClienteTO clienteTO = new ClienteTO();
@@ -82,18 +94,28 @@ public class GerarRelatorio2 {
 	}
 
 	private void logo() {
-		this.dir_logo = this.gerarRelatorio.getDir_logo();
 		try {
+		Properties properties = FabricaDeConexao.getProperties();
+		this.dir_logo =properties.getProperty("LOGO");
 			this.parametro.put("Logo", new FileInputStream(dir_logo));
 		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 
 	private void subreport() {
-		this.dir_1 = "C:/Users/PROGRAMADOR-02/Desktop/relatorio/teste-master/Relatorio/src/main/java/com/intersys/sistema/sge_relatorio2_subreport1.jasper";
+		try {
+			Properties properties = FabricaDeConexao.getProperties();
+		this.dir_1 = properties.getProperty("DIR_VIAS_JASPER");
 		this.parametro.put("dir_1", this.dir_1);
 		this.parametro.put("dir_2", this.dir_1);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 	}
 
@@ -111,8 +133,8 @@ public class GerarRelatorio2 {
 		gerarRelatorio.imprimirRelatorioPdf();
 	}
 
-	private void openPdf() {
-		this.gerarRelatorio.openPdf();
+	private void limpraDir() {
+		this.gerarRelatorio.limparFolder();
 	}
 
 	public void gerarRelatorio2() {
@@ -121,6 +143,7 @@ public class GerarRelatorio2 {
 		this.empresa();
 		this.logo();
 		this.subreport();
+		this.agrupamentos();
 
 		try {
 			InputStream inputStream = GerarRelatorio2.class.getResourceAsStream("sge_relatorio_vias.jrxml");
@@ -128,14 +151,12 @@ public class GerarRelatorio2 {
 			JasperCompileManager.compileReportToStream(inputStream, compileRelatorio);
 			byte[] relatorioCompileReporte = compileRelatorio.toByteArray();
 			compileRelatorio.close();
-			jasperPrint = JasperFillManager.fillReport(new ByteArrayInputStream(relatorioCompileReporte), parametro,
-					jrdataSource());
+			jasperPrint = JasperFillManager.fillReport(new ByteArrayInputStream(relatorioCompileReporte),
+					this.parametro, jrdataSource());
 			this.montarDir();
-			this.salvarPdf();
 			this.imprimirPdf();
-			// JasperViewer jasperViewer = new JasperViewer(jasperPrint, false);
-			// jasperViewer.setExtendedState(jasperViewer.MAXIMIZED_BOTH);
-			// jasperViewer.setVisible(true);
+			this.salvarPdf();
+			this.limpraDir();
 
 		} catch (JRException e) {
 			e.printStackTrace();
@@ -159,6 +180,30 @@ public class GerarRelatorio2 {
 
 	public void setImprimir_via(boolean imprimir_via) {
 		this.imprimir_via = imprimir_via;
+	}
+
+	public boolean isGrupo() {
+		return grupo;
+	}
+
+	public void setGrupo(boolean grupo) {
+		this.grupo = grupo;
+	}
+
+	public boolean isSubgrupo() {
+		return subgrupo;
+	}
+
+	public void setSubgrupo(boolean subgrupo) {
+		this.subgrupo = subgrupo;
+	}
+
+	public boolean isAmbiente() {
+		return ambiente;
+	}
+
+	public void setAmbiente(boolean ambiente) {
+		this.ambiente = ambiente;
 	}
 
 }

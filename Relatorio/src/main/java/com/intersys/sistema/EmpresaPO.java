@@ -20,7 +20,10 @@ public class EmpresaPO {
 
 	public static EmpresaTO empresa() {
 		EmpresaTO empresaTO = new EmpresaTO();
-		String sql = "select razao,cgc,endereco,fone,inscricao,bairro,cep,cidade,e_mail,uf from cademp where codemp = 1 ";
+		String sql = "select razao, Decode(cgc,NULL,NULL,REPLACE(REPLACE(REPLACE(To_Char(LPad(REPLACE(cgc,'')"
+				+ ",14 ,'0'),'00,000,000,0000,00'),',','.'),' ') ,'.'||Trim(To_Char(Trunc(Mod(LPad(cgc,"
+				+ "  14,'0'),1000000)/100),'0000'))||'.' ,'/'||Trim(To_Char(Trunc(Mod(LPad(cgc,14,'0'),"
+				+ "1000000)/100) ,'0000'))||'-')) AS cgc,endereco,fone,inscricao,bairro,cep,cidade,e_mail,uf from cademp where codemp = 1 ";
 
 		try (Connection connection = FabricaDeConexao.getInstancia().getConnxao()) {
 			try (PreparedStatement statement = connection.prepareStatement(sql)) {

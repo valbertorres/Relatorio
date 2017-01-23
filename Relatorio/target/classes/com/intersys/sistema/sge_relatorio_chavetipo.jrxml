@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
-<!-- 2017-01-11T14:11:45 -->
+<!-- 2017-01-23T10:40:45 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="sge_relatorio_chavetipo" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="f8295a7b-dc73-427f-a3fd-7a14ae19f541">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="subreporteoracle"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
@@ -20,7 +20,7 @@ from cadp01,cadtipped where p1chave=$P{chave} and p1tipo=tpcodigo]]>
 		<band height="24" splitType="Stretch">
 			<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
 			<textField>
-				<reportElement x="40" y="0" width="160" height="24" uuid="d26760a6-8e85-484c-aa53-612f3710c38e">
+				<reportElement x="0" y="0" width="380" height="24" uuid="d26760a6-8e85-484c-aa53-612f3710c38e">
 					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
 				</reportElement>
@@ -30,7 +30,7 @@ from cadp01,cadtipped where p1chave=$P{chave} and p1tipo=tpcodigo]]>
 				<textFieldExpression><![CDATA[$F{TIPO}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="350" y="0" width="205" height="24" uuid="b4378ea2-c598-43cd-b049-8704cbf52f00">
+				<reportElement x="380" y="0" width="175" height="24" uuid="b4378ea2-c598-43cd-b049-8704cbf52f00">
 					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
 				</reportElement>
 				<textElement textAlignment="Right" verticalAlignment="Middle">

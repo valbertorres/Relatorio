@@ -101,18 +101,25 @@ public class ImpressaoCtrlVew {
 			agrupamento(gerarImpressaoTO.getAgrupamento());
 			gerarRelatorio.setChave(gerarImpressaoTO.getChave());
 			System.out.println(gerarImpressaoTO.getChave());
+			gerarRelatorio.setImpressora(gerarImpressaoTO.getImpressoraPadrão());
 			gerarRelatorio.setAmbiente(ambiente);
 			gerarRelatorio.setGrupo(grupo);
 			gerarRelatorio.setOrderBy(ordemOmpressao);
 			gerarRelatorio.setSubgrupo(subGrupo);
 			gerarRelatorio.setSem(sem);
+			gerarRelatorio2.setAmbiente(ambiente);
+			gerarRelatorio2.setGrupo(grupo);
+			gerarRelatorio2.setSubgrupo(subGrupo);
 			gerarRelatorio.setId(gerarImpressaoTO.getId());
 			System.out.println(gerarImpressaoTO.getId());
 			gerarRelatorio.setEvento(gerarImpressaoTO.getTipoEvento());
 			gerarRelatorio2.setGerarRelatorio(gerarRelatorio);
 
 			try {
-				if (gerarImpressaoTO.getQtdVias() < 1) {
+				if (gerarImpressaoTO.getQtdVias() < 2) {
+					System.out.println(gerarImpressaoTO.getTipoEvento());
+					System.out.println(gerarImpressaoTO.getChave());
+					System.out.println("menor < 2");
 					if (gerarImpressaoTO.getModeloRelatorio() == 0) {
 						gerarRelatorio.gerarRelatorio();
 					}
@@ -123,8 +130,13 @@ public class ImpressaoCtrlVew {
 				}
 
 				if (gerarImpressaoTO.getQtdVias() == 2) {
+					System.out.println(gerarImpressaoTO.getTipoEvento());
+					System.out.println(gerarImpressaoTO.getChave());
+					System.out.println("igual = 2");
 					if (gerarImpressaoTO.getModeloRelatorio() == 0) {
-						gerarRelatorio.gerarRelatorio();
+						for (int i = 0; i < 2; i++) {
+							gerarRelatorio.gerarRelatorio();
+						}
 					}
 					if (gerarImpressaoTO.getModeloRelatorio() == 1) {
 						gerarRelatorio2.setImprimir_via(true);
@@ -133,7 +145,12 @@ public class ImpressaoCtrlVew {
 				}
 
 				if (gerarImpressaoTO.getQtdVias() > 2) {
-					for (int i = 0; i < gerarImpressaoTO.getQtdVias(); i++) {
+					System.out.println(gerarImpressaoTO.getTipoEvento());
+					System.out.println(gerarImpressaoTO.getChave());
+					System.out.println("maio > 2");
+					int divisor = gerarImpressaoTO.getQtdVias() / 2;
+					int resto = gerarImpressaoTO.getQtdVias() % 2;
+					for (int i = 0; i < divisor; i++) {
 						if (gerarImpressaoTO.getModeloRelatorio() == 0) {
 							gerarRelatorio.setContador(i);
 							gerarRelatorio.gerarRelatorio();
@@ -144,8 +161,18 @@ public class ImpressaoCtrlVew {
 							gerarRelatorio2.gerarRelatorio2();
 						}
 					}
+					if (resto != 0) {
+						if (gerarImpressaoTO.getModeloRelatorio() == 0) {
+							gerarRelatorio.setContador(000000);
+							gerarRelatorio.gerarRelatorio();
+						}
+						if (gerarImpressaoTO.getModeloRelatorio() == 1) {
+							gerarRelatorio.setContador(00000);
+							gerarRelatorio2.setImprimir_via(false);
+							gerarRelatorio2.gerarRelatorio2();
+						}
+					}
 				}
-				gerarRelatorio.salvarPdf();
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
