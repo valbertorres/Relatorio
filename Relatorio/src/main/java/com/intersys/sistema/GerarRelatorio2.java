@@ -6,6 +6,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.sql.Connection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -19,6 +20,7 @@ import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sf.jasperreports.view.JasperViewer;
 
 public class GerarRelatorio2 {
 	private Map<String, Object> parametro = new HashMap<>();
@@ -30,6 +32,7 @@ public class GerarRelatorio2 {
 	private boolean grupo;
 	private boolean subgrupo;
 	private boolean ambiente;
+	private FileInputStream fileLogo;
 
 	private void empresa() {
 		EmpresaTO empresaTO = EmpresaPO.empresa();
@@ -46,15 +49,20 @@ public class GerarRelatorio2 {
 
 	private void produto() {
 		ProdutoTO produtoTO = new ProdutoTO();
-		produtoTO.setChave(gerarRelatorio.getChave());
+		produtoTO.setChave(this.gerarRelatorio.getChave());
 		ProdutoFactory.setProdutoTO(produtoTO);
 		List<ProdutoTO> listaprodutos = ProdutoFactory.listaProduto();
 		JRDataSource produto2 = new JRBeanCollectionDataSource(listaprodutos);
-		JRDataSource produto3 = new JRBeanCollectionDataSource(listaprodutos);
-
 		this.parametro.put("collection", produto2);
+	}
+
+	private void produto2() {
+		ProdutoTO produtoTO = new ProdutoTO();
+		produtoTO.setChave(this.gerarRelatorio.getChave());
+		ProdutoFactory.setProdutoTO(produtoTO);
+		List<ProdutoTO> listaprodutos = ProdutoFactory.listaProduto();
+		JRDataSource produto3 = new JRBeanCollectionDataSource(listaprodutos);
 		this.parametro.put("collection2", produto3);
-		this.parametro.put("imprimir_via", this.imprimir_via);
 	}
 
 	private JRDataSource jrdataSource() {
@@ -71,6 +79,7 @@ public class GerarRelatorio2 {
 		this.parametro.put("exibir_grupo", grupo);
 		this.parametro.put("exibir_subgrupo", subgrupo);
 		this.parametro.put("exibir_ambiente", ambiente);
+		this.parametro.put("imprimir_via", this.imprimir_via);
 	}
 
 	private void cliente() {
@@ -95,27 +104,22 @@ public class GerarRelatorio2 {
 
 	private void logo() {
 		try {
-		Properties properties = FabricaDeConexao.getProperties();
-		this.dir_logo =properties.getProperty("LOGO");
-			this.parametro.put("Logo", new FileInputStream(dir_logo));
+			Properties properties = FabricaDeConexao.getProperties();
+			this.dir_logo = properties.getProperty("LOGO");
+			this.fileLogo = new FileInputStream(dir_logo);
+			this.parametro.put("Logo", fileLogo);
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 
 	private void subreport() {
-		try {
-			Properties properties = FabricaDeConexao.getProperties();
-		this.dir_1 = properties.getProperty("DIR_VIAS_JASPER");
-		this.parametro.put("dir_1", this.dir_1);
-		this.parametro.put("dir_2", this.dir_1);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		InputStream subInputStream = GerarRelatorio2.class.getResourceAsStream("sge_relatorio2_subreport1.jasper");
+		InputStream subInputStream2 = GerarRelatorio2.class.getResourceAsStream("sge_relatorio2_subreport1.jasper");
+		this.parametro.put("dir_1", subInputStream);
+		this.parametro.put("dir_2", subInputStream2);
 
 	}
 
@@ -139,11 +143,12 @@ public class GerarRelatorio2 {
 
 	public void gerarRelatorio2() {
 		this.produto();
+		this.produto2();
 		this.cliente();
 		this.empresa();
 		this.logo();
-		this.subreport();
 		this.agrupamentos();
+		this.subreport();
 
 		try {
 			InputStream inputStream = GerarRelatorio2.class.getResourceAsStream("sge_relatorio_vias.jrxml");
@@ -153,10 +158,15 @@ public class GerarRelatorio2 {
 			compileRelatorio.close();
 			jasperPrint = JasperFillManager.fillReport(new ByteArrayInputStream(relatorioCompileReporte),
 					this.parametro, jrdataSource());
+			JasperViewer jasperViewer = new JasperViewer(this.jasperPrint, false);
+			jasperViewer.setExtendedState(JasperViewer.MAXIMIZED_BOTH);
+			jasperViewer.setDefaultCloseOperation(JasperViewer.DISPOSE_ON_CLOSE);
+			jasperViewer.setVisible(true);
 			this.montarDir();
 			this.imprimirPdf();
 			this.salvarPdf();
-			this.limpraDir();
+//			this.limpraDir();
+			this.fileLogo.close();
 
 		} catch (JRException e) {
 			e.printStackTrace();

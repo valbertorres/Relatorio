@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
-<!-- 2017-01-23T09:45:52 -->
+<!-- 2017-02-02T15:39:05 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="sge_relatorio_vias" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="ac497038-c61d-4317-bb16-1e006e957d10">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="sge_relatorio_produto"/>
 	<parameter name="empresa_nome" class="java.lang.String"/>
@@ -25,16 +25,72 @@
 	<parameter name="collection" class="net.sf.jasperreports.engine.JRDataSource"/>
 	<parameter name="collection2" class="net.sf.jasperreports.engine.JRDataSource"/>
 	<parameter name="imprimir_via" class="java.lang.Boolean"/>
-	<parameter name="dir_1" class="java.lang.String">
+	<parameter name="dir_1" class="java.io.InputStream">
 		<parameterDescription><![CDATA[]]></parameterDescription>
 	</parameter>
-	<parameter name="dir_2" class="java.lang.String"/>
+	<parameter name="dir_2" class="java.io.InputStream"/>
 	<parameter name="exibir_grupo" class="java.lang.Boolean"/>
 	<parameter name="exibir_subgrupo" class="java.lang.Boolean"/>
 	<parameter name="exibir_ambiente" class="java.lang.Boolean"/>
+	<parameter name="lista" class="java.sql.Connection"/>
+	<parameter name="chave" class="java.lang.Integer"/>
 	<queryString>
 		<![CDATA[]]>
 	</queryString>
+	<field name="precoUnitario" class="java.lang.Double">
+		<fieldDescription><![CDATA[precoUnitario]]></fieldDescription>
+	</field>
+	<field name="obs" class="java.lang.String">
+		<fieldDescription><![CDATA[obs]]></fieldDescription>
+	</field>
+	<field name="totalGeralBruto" class="java.lang.Double">
+		<fieldDescription><![CDATA[totalGeralBruto]]></fieldDescription>
+	</field>
+	<field name="codigo" class="java.lang.Long">
+		<fieldDescription><![CDATA[codigo]]></fieldDescription>
+	</field>
+	<field name="item" class="java.lang.Integer">
+		<fieldDescription><![CDATA[item]]></fieldDescription>
+	</field>
+	<field name="sessao" class="java.lang.String">
+		<fieldDescription><![CDATA[sessao]]></fieldDescription>
+	</field>
+	<field name="ambiente" class="java.lang.String">
+		<fieldDescription><![CDATA[ambiente]]></fieldDescription>
+	</field>
+	<field name="chave" class="java.lang.Long">
+		<fieldDescription><![CDATA[chave]]></fieldDescription>
+	</field>
+	<field name="grupo" class="java.lang.String">
+		<fieldDescription><![CDATA[grupo]]></fieldDescription>
+	</field>
+	<field name="orderBy" class="java.lang.String">
+		<fieldDescription><![CDATA[orderBy]]></fieldDescription>
+	</field>
+	<field name="totalGeralDesconto" class="java.lang.Double">
+		<fieldDescription><![CDATA[totalGeralDesconto]]></fieldDescription>
+	</field>
+	<field name="unidade" class="java.lang.String">
+		<fieldDescription><![CDATA[unidade]]></fieldDescription>
+	</field>
+	<field name="marca" class="java.lang.String">
+		<fieldDescription><![CDATA[marca]]></fieldDescription>
+	</field>
+	<field name="quantudade" class="java.lang.Integer">
+		<fieldDescription><![CDATA[quantudade]]></fieldDescription>
+	</field>
+	<field name="totalGeralLiquido" class="java.lang.Double">
+		<fieldDescription><![CDATA[totalGeralLiquido]]></fieldDescription>
+	</field>
+	<field name="subgrupo" class="java.lang.String">
+		<fieldDescription><![CDATA[subgrupo]]></fieldDescription>
+	</field>
+	<field name="valorTotal" class="java.lang.Double">
+		<fieldDescription><![CDATA[valorTotal]]></fieldDescription>
+	</field>
+	<field name="nomeProduto" class="java.lang.String">
+		<fieldDescription><![CDATA[nomeProduto]]></fieldDescription>
+	</field>
 	<group name="1via">
 		<groupFooter>
 			<band height="45">
@@ -188,6 +244,9 @@
 					<subreportParameter name="exibir_ambiente">
 						<subreportParameterExpression><![CDATA[$P{exibir_ambiente}]]></subreportParameterExpression>
 					</subreportParameter>
+					<subreportParameter name="chave">
+						<subreportParameterExpression><![CDATA[$P{chave}]]></subreportParameterExpression>
+					</subreportParameter>
 					<dataSourceExpression><![CDATA[$P{collection2}]]></dataSourceExpression>
 					<subreportExpression><![CDATA[$P{dir_1}]]></subreportExpression>
 				</subreport>
@@ -206,7 +265,7 @@
 				<textElement textAlignment="Right">
 					<font fontName="Arial" size="10"/>
 				</textElement>
-				<textFieldExpression><![CDATA["Page " + $V{PAGE_NUMBER}]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Pág. " + $V{PAGE_NUMBER}]]></textFieldExpression>
 			</textField>
 			<textField evaluationTime="Report">
 				<reportElement x="458" y="0" width="100" height="12" uuid="a65b4a1f-7566-4176-b3e1-bea75db61c6b">

@@ -46,8 +46,11 @@ public class ProdutoFactory {
 			e.printStackTrace();
 		} catch (Exception e) {
 			e.printStackTrace();
+		}finally {
+			
 		}
-		return listaSelect;
+			return listaSelect;
+		
 	}
 
 	private static ProdutoTO transferenciaResultSet(ResultSet resultSet) {

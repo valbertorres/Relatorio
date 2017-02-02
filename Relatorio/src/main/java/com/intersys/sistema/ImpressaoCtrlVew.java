@@ -1,9 +1,5 @@
 package com.intersys.sistema;
 
-import javax.swing.JOptionPane;
-
-import org.springframework.util.SystemPropertyUtils;
-
 public class ImpressaoCtrlVew {
 
 	private Tempo imprimirAuto = new Tempo();
@@ -100,7 +96,6 @@ public class ImpressaoCtrlVew {
 			selecaoimpressao(gerarImpressaoTO.getOrdemImpressao());
 			agrupamento(gerarImpressaoTO.getAgrupamento());
 			gerarRelatorio.setChave(gerarImpressaoTO.getChave());
-			System.out.println(gerarImpressaoTO.getChave());
 			gerarRelatorio.setImpressora(gerarImpressaoTO.getImpressoraPadrão());
 			gerarRelatorio.setAmbiente(ambiente);
 			gerarRelatorio.setGrupo(grupo);
@@ -114,13 +109,15 @@ public class ImpressaoCtrlVew {
 			System.out.println(gerarImpressaoTO.getId());
 			gerarRelatorio.setEvento(gerarImpressaoTO.getTipoEvento());
 			gerarRelatorio2.setGerarRelatorio(gerarRelatorio);
-
+			gerarRelatorio.setImpressora(gerarImpressaoTO.getImpressoraPadrão());
+			System.out.println("impressora padrao "+gerarImpressaoTO.getImpressoraPadrão());
 			try {
 				if (gerarImpressaoTO.getQtdVias() < 2) {
-					System.out.println(gerarImpressaoTO.getTipoEvento());
-					System.out.println(gerarImpressaoTO.getChave());
+					System.out.println("Tipo do evento " + gerarImpressaoTO.getTipoEvento());
+					System.out.println("Chave " + gerarImpressaoTO.getChave());
 					System.out.println("menor < 2");
 					if (gerarImpressaoTO.getModeloRelatorio() == 0) {
+						System.out.println("gerar relatorio modelo  " + gerarImpressaoTO.getModeloRelatorio());
 						gerarRelatorio.gerarRelatorio();
 					}
 					if (gerarImpressaoTO.getModeloRelatorio() == 1) {
@@ -130,8 +127,8 @@ public class ImpressaoCtrlVew {
 				}
 
 				if (gerarImpressaoTO.getQtdVias() == 2) {
-					System.out.println(gerarImpressaoTO.getTipoEvento());
-					System.out.println(gerarImpressaoTO.getChave());
+					System.out.println("Tipo do evento " + gerarImpressaoTO.getTipoEvento());
+					System.out.println("Chave " + gerarImpressaoTO.getChave());
 					System.out.println("igual = 2");
 					if (gerarImpressaoTO.getModeloRelatorio() == 0) {
 						for (int i = 0; i < 2; i++) {
@@ -145,8 +142,8 @@ public class ImpressaoCtrlVew {
 				}
 
 				if (gerarImpressaoTO.getQtdVias() > 2) {
-					System.out.println(gerarImpressaoTO.getTipoEvento());
-					System.out.println(gerarImpressaoTO.getChave());
+					System.out.println("Tipo do evento " + gerarImpressaoTO.getTipoEvento());
+					System.out.println("Chave " + gerarImpressaoTO.getChave());
 					System.out.println("maio > 2");
 					int divisor = gerarImpressaoTO.getQtdVias() / 2;
 					int resto = gerarImpressaoTO.getQtdVias() % 2;
@@ -208,10 +205,11 @@ public class ImpressaoCtrlVew {
 
 							i = 0;
 						}
-
 						i = 0;
+
 					} catch (Exception e) {
 						e.printStackTrace();
+						imprimirAuto.stop();
 					}
 				}
 			}

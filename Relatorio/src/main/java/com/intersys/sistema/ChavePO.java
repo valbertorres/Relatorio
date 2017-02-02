@@ -20,19 +20,20 @@ public class ChavePO {
 		return instancia;
 	}
 
-	public static List<ChaveTO> chave() {
-		List<ChaveTO> listaChaveTipo = new ArrayList<>();
-		ChaveTO chaveTO = new ChaveTO();
+	private ChaveTO chaveTO;
+
+	public ChaveTO chave() {
 		String sql = "select CASE WHEN P1TIPO=0 THEN 'Orcamento' else TPNOME end as tipo, p1chave "
 				+ "from cadp01,cadtipped where p1chave=? and p1tipo=tpcodigo";
 
 		try (Connection connection = FabricaDeConexao.getInstancia().getConnxao()) {
 			try (PreparedStatement statement = connection.prepareStatement(sql)) {
+				statement.setLong(1, this.chaveTO.getChave());
 				try (ResultSet resultSet = statement.executeQuery()) {
-					
+
 					while (resultSet.next()) {
 						chaveTO = transferenciaResultSet(resultSet);
-						listaChaveTipo.add(chaveTO);
+						return chaveTO;
 					}
 				}
 			}
@@ -41,7 +42,7 @@ public class ChavePO {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return listaChaveTipo;
+		return null;
 	}
 
 	private static ChaveTO transferenciaResultSet(ResultSet resultSet) throws SQLException {
@@ -51,6 +52,14 @@ public class ChavePO {
 		chaveTO.setTipoVenda(resultSet.getString("tipo"));
 
 		return chaveTO;
+	}
+
+	public ChaveTO getChaveTO() {
+		return chaveTO;
+	}
+
+	public void setChaveTO(ChaveTO chaveTO) {
+		this.chaveTO = chaveTO;
 	}
 
 }

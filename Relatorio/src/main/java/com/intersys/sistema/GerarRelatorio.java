@@ -26,24 +26,32 @@ import javax.print.SimpleDoc;
 import javax.print.attribute.DocAttributeSet;
 import javax.print.attribute.HashDocAttributeSet;
 import javax.print.attribute.HashPrintRequestAttributeSet;
+import javax.print.attribute.HashPrintServiceAttributeSet;
 import javax.print.attribute.PrintRequestAttributeSet;
+import javax.print.attribute.PrintServiceAttributeSet;
+import javax.print.attribute.standard.Copies;
 import javax.print.attribute.standard.JobName;
 import javax.print.attribute.standard.MediaSizeName;
 import javax.print.attribute.standard.OrientationRequested;
+import javax.print.attribute.standard.PrinterName;
 import javax.swing.JOptionPane;
 
 import org.springframework.util.SystemPropertyUtils;
 
+import com.ibm.icu.impl.Trie2.CharSequenceValues;
 import com.intersys.relatorio.fabricaconexao.FabricaDeConexao;
 
 import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JRExporterParameter;
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperPrintManager;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sf.jasperreports.engine.export.JRPrintServiceExporter;
+import net.sf.jasperreports.engine.export.JRPrintServiceExporterParameter;
 import net.sf.jasperreports.view.JasperViewer;
 
 public class GerarRelatorio {
@@ -72,7 +80,8 @@ public class GerarRelatorio {
 	private int contador;
 	private String impressora;
 	Properties properties;
-	private String dir_logo ;
+	private String dir_logo;
+	private FileInputStream fileLogo;
 
 	private void cliente(long chave) {
 		ClienteTO clienteTO = new ClienteTO();
@@ -105,32 +114,25 @@ public class GerarRelatorio {
 	}
 
 	private void subreport() {
-		try {
-			properties = FabricaDeConexao.getProperties();
-			this.dir_chave = properties.getProperty("DIR_CHAVE_JASPER");
-			this.parameters.put("dir_chave", this.dir_chave);
-
-			this.dir_av = properties.getProperty("DIR_AV_JAPER");
-			this.parameters.put("dir_av", this.dir_av);
-
-			this.dir_parcela = properties.getProperty("DIR_PARCELAS_JASPER");
-			this.parameters.put("dir_parcelas", this.dir_parcela);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
+		InputStream subInputStream = this.getClass().getResourceAsStream("sge_relatorio_chavetipo.jasper");
+		InputStream subInputStreamav = this.getClass().getResourceAsStream("sge_relatorio_av.jasper");
+		InputStream subInputStreamvanc = this.getClass().getResourceAsStream("sge_relatorio_vencimento.jasper");
+		this.parameters.put("dir_chave", subInputStream);
+		this.parameters.put("dir_av", subInputStreamav);
+		this.parameters.put("dir_parcelas", subInputStreamvanc);
 	}
 
-	public void logo() {
+	private void logo() {
 		try {
-			dir_logo ="C:/sge/LOGO0.JPG";
-			this.parameters.put("Logo", new FileInputStream(dir_logo));
-
+			Properties properties = FabricaDeConexao.getProperties();
+			this.dir_logo = properties.getProperty("LOGO");
+			this.fileLogo = new FileInputStream(dir_logo);
+			this.parameters.put("Logo", fileLogo);
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
-
 	}
 
 	private void empresa() {
@@ -200,25 +202,39 @@ public class GerarRelatorio {
 	public void imprimirRelatorioPdf() {
 
 		if (evento.equals("I")) {
-			try {
-				JasperPrintManager.printPage(this.jasperPrint, 0, false);
-			} catch (JRException e) {
-				e.printStackTrace();
-			}
+			// try {
+			// JasperPrintManager.printPage(this.jasperPrint, 0, false);
+			// } catch (JRException e) {
+			// e.printStackTrace();
+			// }
 
-			DocFlavor docFlavor = DocFlavor.INPUT_STREAM.AUTOSENSE;
-			HashDocAttributeSet docAttributeSet = new HashDocAttributeSet();
 			try {
-				for (PrintService printService : PrinterJob.lookupPrintServices()) {
-					System.out.println(printService.getName());
-					if (printService.getName().equals(this.impressora)) {
-						FileInputStream inputStream = new FileInputStream(diretorio);
-						Doc doc = new SimpleDoc(inputStream, docFlavor, docAttributeSet);
-						PrintRequestAttributeSet printRequestAttributeSet = new HashPrintRequestAttributeSet();
-						DocPrintJob job = printService.createPrintJob();
-						job.print(doc, printRequestAttributeSet);
-					}
-				}
+//				PrintService[] servicosImpressao = PrintServiceLookup
+//						.lookupPrintServices(DocFlavor.INPUT_STREAM.AUTOSENSE, null);
+//				PrintService impressora = PrintServiceLookup.lookupDefaultPrintService();
+//				DocFlavor docFlavor = DocFlavor.INPUT_STREAM.PDF;
+//				HashDocAttributeSet attributes = new HashDocAttributeSet();
+//				FileInputStream fi = new FileInputStream(this.diretorio);
+//				Doc documentoTexto = new SimpleDoc(fi, docFlavor, attributes);
+//				PrintRequestAttributeSet printerAttributes = new HashPrintRequestAttributeSet();
+//				printerAttributes.add(new Copies(0));  
+//				DocPrintJob printJob = impressora.createPrintJob();
+//				printJob.print(documentoTexto, printerAttributes);
+				
+				
+				 PrintRequestAttributeSet printRequestAttributeSet = new HashPrintRequestAttributeSet();
+                 printRequestAttributeSet.add(MediaSizeName.ISO_A4);
+                 PrintServiceAttributeSet printServiceAttributeSet = new HashPrintServiceAttributeSet();
+                 printServiceAttributeSet.add(new PrinterName(this.impressora, null));
+                 JRPrintServiceExporter exporter = new JRPrintServiceExporter();
+                 exporter.setParameter(JRExporterParameter.JASPER_PRINT, this.jasperPrint);
+                 exporter.setParameter(JRPrintServiceExporterParameter.PRINT_REQUEST_ATTRIBUTE_SET, printRequestAttributeSet);
+                 exporter.setParameter(JRPrintServiceExporterParameter.PRINT_SERVICE_ATTRIBUTE_SET, printServiceAttributeSet);
+                 exporter.setParameter(JRPrintServiceExporterParameter.DISPLAY_PAGE_DIALOG, Boolean.FALSE);
+                 exporter.setParameter(JRPrintServiceExporterParameter.DISPLAY_PRINT_DIALOG, Boolean.FALSE);
+
+                 exporter.exportReport();
+
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -248,6 +264,21 @@ public class GerarRelatorio {
 		}
 	}
 
+	private void exibir_vencimento() {
+		ChaveTO chaveTO = new ChaveTO();
+		chaveTO.setChave(this.chave);
+
+		ChavePO chavePO = new ChavePO();
+		chavePO.setChaveTO(chaveTO);
+		chaveTO = chavePO.chave();
+		if (chaveTO.getTipoVenda().equals("Emprestimo de Mercadorias")) {
+			this.parameters.put("exebir_vancimento", true);
+		} else {
+			this.parameters.put("exebir_vancimento", false);
+		}
+
+	}
+
 	public void gerarRelatorio() throws Exception {
 		ProdutoFactory.setOrderBy(this.orderBy);
 
@@ -257,6 +288,7 @@ public class GerarRelatorio {
 		this.agrupamento();
 		this.logo();
 		this.subreport();
+		this.exibir_vencimento();
 
 		try {
 
@@ -271,12 +303,13 @@ public class GerarRelatorio {
 			JasperViewer jasperViewer = new JasperViewer(this.jasperPrint, false);
 			jasperViewer.setExtendedState(JasperViewer.MAXIMIZED_BOTH);
 			jasperViewer.setDefaultCloseOperation(JasperViewer.DISPOSE_ON_CLOSE);
-			// jasperViewer.setVisible(true);
+			jasperViewer.setVisible(false);
 
 			this.montarDir();
 			this.imprimirRelatorioPdf();
 			this.salvarPdf();
 			this.limparFolder();
+			this.fileLogo.close();
 
 		} catch (Exception e) {
 			e.printStackTrace();
